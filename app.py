@@ -430,8 +430,9 @@ if st.session_state.logueado:
         "Pronósticos",
         "Clasificación",
         "Detalle de puntos",
+        "⭐ Predicciones",
         "Reglas",
-        "⭐ Predicciones"
+        
 ])
 
     with tab1:
