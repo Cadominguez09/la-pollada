@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import requests
 import os
 from datetime import datetime
 st.set_page_config(
@@ -11,19 +12,53 @@ st.set_page_config(
 # -----------------------------
 # Cargar datos
 # -----------------------------
+API_URL = "https://script.google.com/macros/s/AKfycbyC5g4hOzBMkoC9YxLj_gadcljHmqVsfIidI0L3GKb5u5bS0ccrlE3l-LqMAaes3KPNjA/exec"
 
+
+def leer_sheet(nombre_hoja):
+    respuesta = requests.get(
+        API_URL,
+        params={
+            "action": "read",
+            "sheet": nombre_hoja
+        }
+    )
+
+    datos = respuesta.json()
+
+    return pd.DataFrame(datos)
+
+
+def escribir_sheet(nombre_hoja, df):
+    filas = df.to_dict(orient="records")
+
+    respuesta = requests.post(
+        API_URL,
+        json={
+            "action": "write",
+            "sheet": nombre_hoja,
+            "rows": filas
+        }
+    )
+
+    return respuesta.json()
 def cargar_jugadores():
-    return pd.read_csv("jugadores.csv")
+    return leer_sheet("jugadores")
 
 
 def cargar_partidos():
-    return pd.read_csv("partidos.csv")
+    return leer_sheet("partidos")
 
 
 def cargar_resultados():
-    if os.path.exists("resultados.csv"):
-        return pd.read_csv("resultados.csv")
-    return pd.DataFrame(columns=["partido_id", "goles_local", "goles_visitante"])
+    df = leer_sheet("resultados")
+
+    if df.empty:
+        return pd.DataFrame(columns=[
+            "partido_id", "goles_local", "goles_visitante"
+        ])
+
+    return df
 def guardar_resultado(partido_id, goles_local, goles_visitante):
 
     resultados = cargar_resultados()
@@ -45,10 +80,7 @@ def guardar_resultado(partido_id, goles_local, goles_visitante):
         ignore_index=True
     )
 
-    resultados.to_csv(
-        "resultados.csv",
-        index=False
-    )
+    escribir_sheet("resultados", resultados)
 def eliminar_resultado(partido_id):
 
     resultados = cargar_resultados()
@@ -57,42 +89,40 @@ def eliminar_resultado(partido_id):
         resultados["partido_id"] != partido_id
     ]
 
-    resultados.to_csv(
-        "resultados.csv",
-        index=False
-    )
+    escribir_sheet("resultados", resultados)
 def cargar_pronosticos():
-    if os.path.exists("pronosticos.csv"):
-        return pd.read_csv("pronosticos.csv")
-    return pd.DataFrame(columns=[
-        "usuario", "partido_id", "equipo_local", "equipo_visitante",
-        "goles_local", "goles_visitante"
-    ])
+    df = leer_sheet("pronosticos")
+
+    if df.empty:
+        return pd.DataFrame(columns=[
+            "usuario", "partido_id", "equipo_local", "equipo_visitante",
+            "goles_local", "goles_visitante"
+        ])
+
+    return df
 
 
 def guardar_pronosticos(nuevos_pronosticos):
-    archivo = "pronosticos.csv"
     df_nuevo = pd.DataFrame(nuevos_pronosticos)
 
-    if os.path.exists(archivo):
-        df_existente = pd.read_csv(archivo)
+    df_existente = cargar_pronosticos()
 
-        usuario = st.session_state.usuario
-        ids_partidos = df_nuevo["partido_id"].tolist()
+    usuario = st.session_state.usuario
+    ids_partidos = df_nuevo["partido_id"].tolist()
 
-        df_existente = df_existente[
-            ~(
-                (df_existente["usuario"] == usuario) &
-                (df_existente["partido_id"].isin(ids_partidos))
-            )
-        ]
+    df_existente = df_existente[
+        ~(
+            (df_existente["usuario"] == usuario) &
+            (df_existente["partido_id"].isin(ids_partidos))
+        )
+    ]
 
-        df_final = pd.concat([df_existente, df_nuevo], ignore_index=True)
+    df_final = pd.concat(
+        [df_existente, df_nuevo],
+        ignore_index=True
+    )
 
-    else:
-        df_final = df_nuevo
-
-    df_final.to_csv(archivo, index=False)
+    escribir_sheet("pronosticos", df_final)
 
 
 # -----------------------------
@@ -229,6 +259,7 @@ def obtener_posicion_usuario(usuario):
 # -----------------------------
 
 jugadores = cargar_jugadores()
+
 partidos = cargar_partidos()
 
 if "logueado" not in st.session_state:
@@ -432,10 +463,7 @@ if st.session_state.logueado:
 
         for _, partido in partidos.iterrows():
 
-            fecha_partido = datetime.strptime(
-                partido["fecha"],
-                "%Y-%m-%d %H:%M"
-            )
+            fecha_partido = pd.to_datetime(partido["fecha"]).tz_convert(None)
 
             partido_cerrado = datetime.now() >= fecha_partido
 
@@ -689,3 +717,4 @@ if st.session_state.logueado:
             No afectan la clasificación oficial de La Pollada.
             """
         )
+        Migracion a Google Sheets
