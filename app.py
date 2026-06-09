@@ -717,4 +717,4 @@ if st.session_state.logueado:
             No afectan la clasificación oficial de La Pollada.
             """
         )
-        Migracion a Google Sheets
+        #Migracion a Google Sheets
