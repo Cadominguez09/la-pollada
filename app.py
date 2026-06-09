@@ -489,10 +489,23 @@ if st.session_state.logueado:
         resultados = cargar_resultados()
 
         pronosticos_usuario = pronosticos_guardados[
-            pronosticos_guardados["usuario"] == st.session_state.usuario
+        pronosticos_guardados["usuario"] == st.session_state.usuario
         ]
 
         pronosticos = []
+
+        fecha_seleccionada = st.selectbox(
+        "📅 Selecciona la fecha",
+        [
+        "Primera fecha de grupos",
+        "Segunda fecha de grupos",
+        "Tercera fecha de grupos"
+        ]
+        )
+
+        partidos = partidos[
+        partidos["jornada"] == fecha_seleccionada
+    ]
 
         for _, partido in partidos.iterrows():
 
