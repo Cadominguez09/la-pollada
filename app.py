@@ -653,13 +653,13 @@ if st.session_state.logueado:
             )
     with tab4:
 
-    st.write("## ⭐ Predicciones especiales")
+        st.write("## ⭐ Predicciones especiales")
 
-    predicciones_guardadas = cargar_predicciones_especiales()
+        predicciones_guardadas = cargar_predicciones_especiales()
 
-    fila = predicciones_guardadas[
-        predicciones_guardadas["usuario"] ==
-        st.session_state.usuario
+        fila = predicciones_guardadas[
+            predicciones_guardadas["usuario"] ==
+            st.session_state.usuario
     ]
 
     campeon_default = ""
