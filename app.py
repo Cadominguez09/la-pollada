@@ -426,12 +426,13 @@ if st.session_state.logueado:
 
         st.stop()
 
-    tab1, tab2, tab3, tab4 = st.tabs([
-        "⚽ Pronósticos",
-        "🏆 Clasificación",
-        "📋 Detalle de puntos",
-        "📜 Reglas"
-    ])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+        "Pronósticos",
+        "Clasificación",
+        "Detalle de puntos",
+        "Reglas",
+        "⭐ Predicciones"
+])
 
     with tab1:
 
