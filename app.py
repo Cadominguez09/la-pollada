@@ -100,7 +100,38 @@ def cargar_pronosticos():
         ])
 
     return df
+def cargar_predicciones_especiales():
+    df = leer_sheet("predicciones_especiales")
 
+    if df.empty:
+        return pd.DataFrame(columns=[
+            "usuario",
+            "campeon",
+            "subcampeon",
+            "tercer_lugar",
+            "maximo_goleador",
+            "mejor_jugador",
+            "mejor_arquero"
+        ])
+
+    return df
+
+
+def guardar_predicciones_especiales(usuario, predicciones):
+    df_existente = cargar_predicciones_especiales()
+
+    df_existente = df_existente[
+        df_existente["usuario"] != usuario
+    ]
+
+    df_nuevo = pd.DataFrame([predicciones])
+
+    df_final = pd.concat(
+        [df_existente, df_nuevo],
+        ignore_index=True
+    )
+
+    escribir_sheet("predicciones_especiales", df_final)
 
 def guardar_pronosticos(nuevos_pronosticos):
     df_nuevo = pd.DataFrame(nuevos_pronosticos)
