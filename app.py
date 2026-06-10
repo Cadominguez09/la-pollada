@@ -427,11 +427,11 @@ if st.session_state.logueado:
         cantidad = len(pronosticos_usuario)
 
         if cantidad == total_partidos:
-        estado = "✅ Completo"
+            estado = "✅ Completo"
         elif cantidad == 0:
-        estado = "❌ Sin llenar"
+            estado = "❌ Sin llenar"
         else:
-        estado = "⚠️ Incompleto"
+            estado = "⚠️ Incompleto"
 
     filas_estado.append({
         "usuario": usuario,
