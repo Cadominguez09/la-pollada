@@ -452,13 +452,13 @@ if st.session_state.logueado:
                 right_on="id"
             )
 
-            resultados_mostrar["partido"] = (
+        resultados_mostrar["partido"] = (
                 resultados_mostrar["equipo_local"]
                 + " vs "
                 + resultados_mostrar["equipo_visitante"]
             )
 
-            st.dataframe(
+        st.dataframe(
                 resultados_mostrar[["partido", "goles_local", "goles_visitante"]],
                 use_container_width=True,
                 hide_index=True
