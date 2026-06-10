@@ -390,7 +390,7 @@ if st.session_state.logueado:
         if st.session_state.es_admin:
 
         
-        st.write("## 📋 Estado de pronósticos")
+            st.write("## 📋 Estado de pronósticos")
 
         jornada_admin = st.selectbox(
         "Selecciona fecha para revisar",
