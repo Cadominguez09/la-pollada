@@ -21,10 +21,15 @@ def leer_sheet(nombre_hoja):
         params={
             "action": "read",
             "sheet": nombre_hoja
-        }
+        },
+        timeout=10
     )
 
-    datos = respuesta.json()
+    try:
+        datos = respuesta.json()
+    except Exception:
+        st.warning("⚠️ No se pudieron cargar datos de Google Sheets. Refresca la página e intenta de nuevo.")
+        return pd.DataFrame()
 
     return pd.DataFrame(datos)
 
