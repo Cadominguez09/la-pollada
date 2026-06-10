@@ -395,7 +395,7 @@ if not st.session_state.logueado:
 if st.session_state.logueado:
 
     st.success(f"Bienvenido/a, {st.session_state.usuario} ⚽")
-
+    st.write("ADMIN:", st.session_state.es_admin)
     if st.button("Cerrar sesión"):
         st.session_state.logueado = False
         st.session_state.usuario = ""
