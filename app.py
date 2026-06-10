@@ -402,88 +402,88 @@ if st.session_state.logueado:
         st.session_state.es_admin = False
         st.rerun()
 
-    if st.session_state.es_admin:
+        if st.session_state.es_admin:
 
         st.write("## 🛠️ Panel de administrador")
-        
-        
-    st.write("## 📋 Estado de pronósticos")
 
-    jornada_admin = st.selectbox(
-        "Selecciona fecha para revisar",
-        [
-            "Primera fecha de grupos",
-            "Segunda fecha de grupos",
-            "Tercera fecha de grupos"
-        ],
-        key="admin_jornada"
-    )
+        st.write("## 📋 Estado de pronósticos")
 
-    jugadores_df = cargar_jugadores()
-    partidos_df = cargar_partidos()
-    pronosticos_df = cargar_pronosticos()
+        jornada_admin = st.selectbox(
+            "Selecciona fecha para revisar",
+            [
+                "Primera fecha de grupos",
+                "Segunda fecha de grupos",
+                "Tercera fecha de grupos"
+            ],
+            key="admin_jornada"
+        )
 
-    partidos_jornada = partidos_df[
-        partidos_df["jornada"] == jornada_admin
-    ]
+        jugadores_df = cargar_jugadores()
+        partidos_df = cargar_partidos()
+        pronosticos_df = cargar_pronosticos()
 
-    ids_jornada = partidos_jornada["id"].tolist()
-    total_partidos = len(ids_jornada)
-
-    filas_estado = []
-
-    for _, jugador in jugadores_df.iterrows():
-
-        usuario = jugador["nombre"]
-
-        pronosticos_usuario = pronosticos_df[
-            (pronosticos_df["usuario"] == usuario) &
-            (pronosticos_df["partido_id"].isin(ids_jornada))
+        partidos_jornada = partidos_df[
+            partidos_df["jornada"] == jornada_admin
         ]
 
-        cantidad = len(pronosticos_usuario)
+        ids_jornada = partidos_jornada["id"].tolist()
+        total_partidos = len(ids_jornada)
 
-        if cantidad == total_partidos:
-            estado = "✅ Completo"
-        elif cantidad == 0:
-            estado = "❌ Sin llenar"
+        filas_estado = []
+
+        for _, jugador in jugadores_df.iterrows():
+
+            usuario = jugador["nombre"]
+
+            pronosticos_usuario = pronosticos_df[
+                (pronosticos_df["usuario"] == usuario) &
+                (pronosticos_df["partido_id"].isin(ids_jornada))
+            ]
+
+            cantidad = len(pronosticos_usuario)
+
+            if cantidad == total_partidos:
+                estado = "✅ Completo"
+            elif cantidad == 0:
+                estado = "❌ Sin llenar"
+            else:
+                estado = "⚠️ Incompleto"
+
+            filas_estado.append({
+                "usuario": usuario,
+                "partidos llenados": cantidad,
+                "total partidos": total_partidos,
+                "estado": estado
+            })
+
+        estado_df = pd.DataFrame(filas_estado)
+
+        st.dataframe(
+            estado_df,
+            use_container_width=True,
+            hide_index=True
+        )
+
+        resultados = cargar_resultados()
+
+        st.write("### Resultados oficiales")
+
+        if resultados.empty:
+            st.info("Todavía no hay resultados cargados.")
         else:
-            estado = "⚠️ Incompleto"
-
-        filas_estado.append({
-            "usuario": usuario,
-            "partidos llenados": cantidad,
-            "total partidos": total_partidos,
-            "estado": estado
-        })
-
-    estado_df = pd.DataFrame(filas_estado)
-
-    st.dataframe(
-        estado_df,
-        use_container_width=True,
-        hide_index=True
-    )
-    resultados = cargar_resultados()
-
-    st.write("### Resultados oficiales")
-
-    if resultados.empty:
-        st.info("Todavía no hay resultados cargados.")
-    else:
-        resultados_mostrar = resultados.merge(
-                partidos[["id", "equipo_local", "equipo_visitante"]],
+            resultados_mostrar = resultados.merge(
+                partidos_df[["id", "equipo_local", "equipo_visitante"]],
                 left_on="partido_id",
                 right_on="id"
             )
 
-        resultados_mostrar["partido"] = (
+            resultados_mostrar["partido"] = (
                 resultados_mostrar["equipo_local"]
                 + " vs "
                 + resultados_mostrar["equipo_visitante"]
             )
 
-        st.dataframe(
+            st.dataframe(
                 resultados_mostrar[["partido", "goles_local", "goles_visitante"]],
                 use_container_width=True,
                 hide_index=True
@@ -493,12 +493,13 @@ if st.session_state.logueado:
 
         opciones = {
             f"{row['id']} - {row['equipo_local']} vs {row['equipo_visitante']}": row["id"]
-            for _, row in partidos.iterrows()
+            for _, row in partidos_df.iterrows()
         }
 
         seleccion = st.selectbox(
             "Partido",
-            list(opciones.keys())
+            list(opciones.keys()),
+            key="admin_partido_resultado"
         )
 
         partido_id = opciones[seleccion]
@@ -524,8 +525,8 @@ if st.session_state.logueado:
 
             st.stop()
 
-        partido = partidos[
-            partidos["id"] == partido_id
+        partido = partidos_df[
+            partidos_df["id"] == partido_id
         ].iloc[0]
 
         st.write(
@@ -535,16 +536,19 @@ if st.session_state.logueado:
         goles_local = st.number_input(
             "Goles local",
             min_value=0,
-            max_value=20
+            max_value=20,
+            key="admin_goles_local"
         )
 
         goles_visitante = st.number_input(
             "Goles visitante",
             min_value=0,
-            max_value=20
+            max_value=20,
+            key="admin_goles_visitante"
         )
 
         if st.button("Guardar resultado oficial"):
+
             guardar_resultado(
                 partido_id,
                 goles_local,
