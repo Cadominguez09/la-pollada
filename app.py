@@ -564,8 +564,16 @@ if st.session_state.logueado:
 
         with col3:
             st.metric("🐶 Oli Puntos ", 0)
-        st.write("## Jornada 1")
+        fecha_seleccionada = st.selectbox(
+    "📅 Selecciona la fecha",
+    [
+        "Primera fecha de grupos",
+        "Segunda fecha de grupos",
+        "Tercera fecha de grupos"
+    ]
+)
 
+st.header(fecha_seleccionada)
         pronosticos_guardados = cargar_pronosticos()
         resultados = cargar_resultados()
 
