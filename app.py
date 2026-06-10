@@ -390,39 +390,39 @@ if st.session_state.logueado:
         if st.session_state.es_admin:
 
         
-            st.write("## 📋 Estado de pronósticos")
+     st.write("## 📋 Estado de pronósticos")
 
-        jornada_admin = st.selectbox(
+    jornada_admin = st.selectbox(
         "Selecciona fecha para revisar",
-    [
-        "Primera fecha de grupos",
-        "Segunda fecha de grupos",
-        "Tercera fecha de grupos"
-    ],
-    key="admin_jornada"
-)
+        [
+            "Primera fecha de grupos",
+            "Segunda fecha de grupos",
+            "Tercera fecha de grupos"
+        ],
+        key="admin_jornada"
+    )
 
-        jugadores_df = cargar_jugadores()
-        partidos_df = cargar_partidos()
-        pronosticos_df = cargar_pronosticos()
+    jugadores_df = cargar_jugadores()
+    partidos_df = cargar_partidos()
+    pronosticos_df = cargar_pronosticos()
 
-        partidos_jornada = partidos_df[
+    partidos_jornada = partidos_df[
         partidos_df["jornada"] == jornada_admin
-]
+    ]
 
-        ids_jornada = partidos_jornada["id"].tolist()
-        total_partidos = len(ids_jornada)
+    ids_jornada = partidos_jornada["id"].tolist()
+    total_partidos = len(ids_jornada)
 
-        filas_estado = []
+    filas_estado = []
 
-        for _, jugador in jugadores_df.iterrows():
+    for _, jugador in jugadores_df.iterrows():
 
-            usuario = jugador["nombre"]
+        usuario = jugador["nombre"]
 
         pronosticos_usuario = pronosticos_df[
-        (pronosticos_df["usuario"] == usuario) &
-        (pronosticos_df["partido_id"].isin(ids_jornada))
-    ]
+            (pronosticos_df["usuario"] == usuario) &
+            (pronosticos_df["partido_id"].isin(ids_jornada))
+        ]
 
         cantidad = len(pronosticos_usuario)
 
@@ -433,12 +433,20 @@ if st.session_state.logueado:
         else:
             estado = "⚠️ Incompleto"
 
-    filas_estado.append({
-        "usuario": usuario,
-        "partidos llenados": cantidad,
-        "total partidos": total_partidos,
-        "estado": estado
-    })
+        filas_estado.append({
+            "usuario": usuario,
+            "partidos llenados": cantidad,
+            "total partidos": total_partidos,
+            "estado": estado
+        })
+
+    estado_df = pd.DataFrame(filas_estado)
+
+    st.dataframe(
+        estado_df,
+        use_container_width=True,
+        hide_index=True
+    )
     resultados = cargar_resultados()
 
     st.write("### Resultados oficiales")
