@@ -582,6 +582,8 @@ if st.session_state.logueado:
 
         with col3:
             st.metric("🐶 Oli Puntos ", 0)
+            pronosticos_guardados = cargar_pronosticos()
+            resultados = cargar_resultados()
             pronosticos_usuario = pronosticos_guardados[
             pronosticos_guardados["usuario"] == st.session_state.usuario
         ]
