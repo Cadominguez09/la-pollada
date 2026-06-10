@@ -439,7 +439,7 @@ if st.session_state.logueado:
         "total partidos": total_partidos,
         "estado": estado
     })
-        resultados = cargar_resultados()
+    resultados = cargar_resultados()
 
         st.write("### Resultados oficiales")
 
