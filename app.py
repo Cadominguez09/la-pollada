@@ -397,8 +397,22 @@ if st.session_state.logueado:
     st.success(f"Bienvenido/a, {st.session_state.usuario} ⚽")
     st.write("ADMIN:", st.session_state.es_admin)
     if st.session_state.es_admin:
+
         st.write("## 🛠️ Panel de administrador")
-        st.stop()
+
+        st.write("## 📋 Estado de pronósticos")
+
+    jornada_admin = st.selectbox(
+        "Selecciona fecha para revisar",
+        [
+            "Primera fecha de grupos",
+            "Segunda fecha de grupos",
+            "Tercera fecha de grupos"
+        ],
+        key="admin_jornada"
+    )
+
+    st.stop()
     if st.button("Cerrar sesión"):
         st.session_state.logueado = False
         st.session_state.usuario = ""
