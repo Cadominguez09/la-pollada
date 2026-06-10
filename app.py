@@ -487,7 +487,7 @@ if st.session_state.logueado:
             st.metric("Puntos Mundial 🏆", puntos_usuario)
 
         with col3:
-            st.metric("Charlie Puntos ⭐", 0)
+            st.metric("🐶 Oli Puntos ", 0)
         st.write("## Jornada 1")
 
         pronosticos_guardados = cargar_pronosticos()
@@ -831,11 +831,11 @@ if st.session_state.logueado:
             """
         )
 
-        st.write("### 5. Charlie Puntos ⭐")
+        st.write("### 5. 🐶 Oli Puntos ⭐")
 
         st.write(
             """
-            Los Charlie Puntos son puntos especiales para premios sorpresa,
+            Los Oli Puntos son puntos especiales para premios sorpresa,
             rifas, Melositas, Cocosette u otros regalos.
 
             No afectan la clasificación oficial de La Pollada.
