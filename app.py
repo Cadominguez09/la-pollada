@@ -334,10 +334,6 @@ if "jornada" not in partidos.columns:
     )
     st.stop()
 
-partidos = partidos[
-    partidos["jornada"] == fecha_seleccionada
-]
-
 if "logueado" not in st.session_state:
     st.session_state.logueado = False
 
