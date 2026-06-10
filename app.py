@@ -573,7 +573,7 @@ if st.session_state.logueado:
     ]
 )
 
-st.header(fecha_seleccionada)
+        st.header(fecha_seleccionada)
         pronosticos_guardados = cargar_pronosticos()
         resultados = cargar_resultados()
 
