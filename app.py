@@ -389,7 +389,7 @@ if st.session_state.logueado:
         st.write("## 🛠️ Panel de administrador")
         if st.session_state.es_admin:
 
-        st.write("## 🛠️ Panel de administrador")
+        
         st.write("## 📋 Estado de pronósticos")
 
         jornada_admin = st.selectbox(
