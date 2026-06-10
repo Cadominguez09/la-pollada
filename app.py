@@ -16,14 +16,32 @@ API_URL = "https://script.google.com/macros/s/AKfycbyC5g4hOzBMkoC9YxLj_gadcljHmq
 
 
 def leer_sheet(nombre_hoja):
-    respuesta = requests.get(
-        API_URL,
-        params={
-            "action": "read",
-            "sheet": nombre_hoja
-        },
-        timeout=10
-    )
+    try:
+        respuesta = requests.get(
+            API_URL,
+            params={
+                "action": "read",
+                "sheet": nombre_hoja
+            },
+            timeout=30
+        )
+    except requests.exceptions.RequestException:
+        st.warning(
+            "⚠️ Google Sheets tardó demasiado en responder. "
+            "Refresca la página e intenta de nuevo."
+        )
+        return pd.DataFrame()
+
+    try:
+        datos = respuesta.json()
+    except Exception:
+        st.warning(
+            "⚠️ No se pudieron cargar datos de Google Sheets. "
+            "Refresca la página e intenta de nuevo."
+        )
+        return pd.DataFrame()
+
+    return pd.DataFrame(datos)
 
     try:
         datos = respuesta.json()
