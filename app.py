@@ -404,9 +404,9 @@ if st.session_state.logueado:
 
         if st.session_state.es_admin:
 
-        st.write("## 🛠️ Panel de administrador")
+            st.write("## 🛠️ Panel de administrador")
 
-        st.write("## 📋 Estado de pronósticos")
+            st.write("## 📋 Estado de pronósticos")
 
         jornada_admin = st.selectbox(
             "Selecciona fecha para revisar",
