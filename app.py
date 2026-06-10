@@ -507,7 +507,10 @@ if st.session_state.logueado:
         "Tercera fecha de grupos"
         ]
         )
-
+        st.warning(
+        "⚠️ Los cambios NO se guardan automáticamente. "
+        "Al terminar, baja hasta el final y pulsa 'Guardar pronósticos'."
+)
         partidos = partidos[
         partidos["jornada"] == fecha_seleccionada
     ]
