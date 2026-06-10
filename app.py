@@ -584,14 +584,7 @@ if st.session_state.logueado:
 
         pronosticos = []
 
-        fecha_seleccionada = st.selectbox(
-        "📅 Selecciona la fecha",
-        [
-        "Primera fecha de grupos",
-        "Segunda fecha de grupos",
-        "Tercera fecha de grupos"
-        ]
-        )
+       
         st.warning(
         "⚠️ Los cambios NO se guardan automáticamente. "
         "Al terminar, baja hasta el final y pulsa 'Guardar pronósticos'."
