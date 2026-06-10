@@ -441,7 +441,7 @@ if st.session_state.logueado:
     })
     resultados = cargar_resultados()
 
-        st.write("### Resultados oficiales")
+    st.write("### Resultados oficiales")
 
         if resultados.empty:
             st.info("Todavía no hay resultados cargados.")
