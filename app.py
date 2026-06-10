@@ -328,6 +328,16 @@ jugadores = cargar_jugadores()
 
 partidos = cargar_partidos()
 
+if "jornada" not in partidos.columns:
+    st.warning(
+        "⚠️ No se pudieron cargar los partidos. Refresca la página."
+    )
+    st.stop()
+
+partidos = partidos[
+    partidos["jornada"] == fecha_seleccionada
+]
+
 if "logueado" not in st.session_state:
     st.session_state.logueado = False
 
