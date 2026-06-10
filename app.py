@@ -586,34 +586,36 @@ if st.session_state.logueado:
 
         with col3:
             st.metric("🐶 Oli Puntos ", 0)
-        fecha_seleccionada = st.selectbox(
-    "📅 Selecciona la fecha",
-    [
-        "Primera fecha de grupos",
-        "Segunda fecha de grupos",
-        "Tercera fecha de grupos"
-    ],
-    key="fecha_usuario"
-)
-
-        st.header(fecha_seleccionada)
-        pronosticos_guardados = cargar_pronosticos()
-        resultados = cargar_resultados()
-
-        pronosticos_usuario = pronosticos_guardados[
-        pronosticos_guardados["usuario"] == st.session_state.usuario
+                pronosticos_usuario = pronosticos_guardados[
+            pronosticos_guardados["usuario"] == st.session_state.usuario
         ]
 
         pronosticos = []
 
-       
+        fecha_seleccionada = st.selectbox(
+            "📅 Selecciona la fecha",
+            [
+                "Primera fecha de grupos",
+                "Segunda fecha de grupos",
+                "Tercera fecha de grupos"
+            ],
+            key="fecha_usuario"
+        )
+
+        st.header(fecha_seleccionada)
+
         st.warning(
-        "⚠️ Los cambios NO se guardan automáticamente. "
-        "Al terminar, baja hasta el final y pulsa 'Guardar pronósticos'."
-)
+            "⚠️ Los cambios NO se guardan automáticamente. "
+            "Al terminar, baja hasta el final y pulsa 'Guardar pronósticos'."
+        )
+
+        if "jornada" not in partidos.columns:
+            st.warning("⚠️ No se pudieron cargar los partidos. Refresca la página.")
+            st.stop()
+
         partidos = partidos[
-        partidos["jornada"] == fecha_seleccionada
-    ]
+            partidos["jornada"] == fecha_seleccionada
+        ]
 
         for _, partido in partidos.iterrows():
 
