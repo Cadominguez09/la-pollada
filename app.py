@@ -417,7 +417,7 @@ if st.session_state.logueado:
 
         for _, jugador in jugadores_df.iterrows():
 
-        usuario = jugador["nombre"]
+            usuario = jugador["nombre"]
 
         pronosticos_usuario = pronosticos_df[
         (pronosticos_df["usuario"] == usuario) &
