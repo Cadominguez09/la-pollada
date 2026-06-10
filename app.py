@@ -70,8 +70,20 @@ def cargar_jugadores():
 
 
 def cargar_partidos():
-    return leer_sheet("partidos")
+    df = leer_sheet("partidos")
 
+    columnas = [
+        "id",
+        "jornada",
+        "equipo_local",
+        "equipo_visitante",
+        "fecha"
+    ]
+
+    if df.empty:
+        return pd.DataFrame(columns=columnas)
+
+    return df
 
 def cargar_resultados():
     df = leer_sheet("resultados")
