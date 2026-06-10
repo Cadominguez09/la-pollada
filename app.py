@@ -412,8 +412,8 @@ if st.session_state.logueado:
         key="admin_jornada"
     )
      jugadores_df = cargar_jugadores()
-partidos_df = cargar_partidos()
-pronosticos_df = cargar_pronosticos()
+        partidos_df = cargar_partidos()
+        pronosticos_df = cargar_pronosticos()
 
 partidos_jornada = partidos_df[
     partidos_df["jornada"] == jornada_admin
