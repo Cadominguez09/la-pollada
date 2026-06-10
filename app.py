@@ -558,7 +558,7 @@ if st.session_state.logueado:
             st.success("Resultado guardado ✅")
             st.rerun()
 
-        st.stop()
+            st.stop()
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "Pronósticos",
