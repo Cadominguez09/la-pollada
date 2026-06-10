@@ -397,8 +397,8 @@ if st.session_state.logueado:
     st.success(f"Bienvenido/a, {st.session_state.usuario} ⚽")
     st.write("ADMIN:", st.session_state.es_admin)
     if st.session_state.es_admin:
-    st.write("## 🛠️ Panel de administrador")
-    st.stop()
+        st.write("## 🛠️ Panel de administrador")
+        st.stop()
     if st.button("Cerrar sesión"):
         st.session_state.logueado = False
         st.session_state.usuario = ""
