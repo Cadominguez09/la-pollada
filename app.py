@@ -443,10 +443,10 @@ if st.session_state.logueado:
 
     st.write("### Resultados oficiales")
 
-        if resultados.empty:
-            st.info("Todavía no hay resultados cargados.")
-        else:
-            resultados_mostrar = resultados.merge(
+    if resultados.empty:
+        st.info("Todavía no hay resultados cargados.")
+    else:
+        resultados_mostrar = resultados.merge(
                 partidos[["id", "equipo_local", "equipo_visitante"]],
                 left_on="partido_id",
                 right_on="id"
