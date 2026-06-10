@@ -387,8 +387,7 @@ if st.session_state.logueado:
     if st.session_state.es_admin:
 
         st.write("## 🛠️ Panel de administrador")
-        if st.session_state.es_admin:
-
+        
         
     st.write("## 📋 Estado de pronósticos")
 
