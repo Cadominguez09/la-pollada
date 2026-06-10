@@ -570,7 +570,8 @@ if st.session_state.logueado:
         "Primera fecha de grupos",
         "Segunda fecha de grupos",
         "Tercera fecha de grupos"
-    ]
+    ],
+    key="fecha_usuario"
 )
 
         st.header(fecha_seleccionada)
