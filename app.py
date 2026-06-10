@@ -398,9 +398,9 @@ if st.session_state.logueado:
     st.write("ADMIN:", st.session_state.es_admin)
     if st.session_state.es_admin:
 
-        st.write("## 🛠️ Panel de administrador")
+    st.write("## 🛠️ Panel de administrador")
 
-        st.write("## 📋 Estado de pronósticos")
+    st.write("## 📋 Estado de pronósticos")
 
     jornada_admin = st.selectbox(
         "Selecciona fecha para revisar",
@@ -411,7 +411,52 @@ if st.session_state.logueado:
         ],
         key="admin_jornada"
     )
+     jugadores_df = cargar_jugadores()
+partidos_df = cargar_partidos()
+pronosticos_df = cargar_pronosticos()
 
+partidos_jornada = partidos_df[
+    partidos_df["jornada"] == jornada_admin
+]
+
+ids_jornada = partidos_jornada["id"].tolist()
+total_partidos = len(ids_jornada)
+
+filas_estado = []
+
+for _, jugador in jugadores_df.iterrows():
+
+    usuario = jugador["nombre"]
+
+    pronosticos_usuario = pronosticos_df[
+        (pronosticos_df["usuario"] == usuario)
+        &
+        (pronosticos_df["partido_id"].isin(ids_jornada))
+    ]
+
+    cantidad = len(pronosticos_usuario)
+
+    if cantidad == total_partidos:
+        estado = "✅ Completo"
+    elif cantidad == 0:
+        estado = "❌ Sin llenar"
+    else:
+        estado = "⚠️ Incompleto"
+
+    filas_estado.append({
+        "Usuario": usuario,
+        "Llenados": cantidad,
+        "Total": total_partidos,
+        "Estado": estado
+    })
+
+estado_df = pd.DataFrame(filas_estado)
+
+st.dataframe(
+    estado_df,
+    use_container_width=True,
+    hide_index=True
+)
     st.stop()
     if st.button("Cerrar sesión"):
         st.session_state.logueado = False
