@@ -472,42 +472,50 @@ if st.session_state.logueado:
                 use_container_width=True,
                 hide_index=True
             )
-            st.write("### Registrar resultado")
+                    st.write("### Registrar resultado")
 
-            opciones = {
-                f"{row['id']} - {row['equipo_local']} vs {row['equipo_visitante']}": row["id"]
-                for _, row in partidos_df.iterrows()
-}
+        opciones = {
+            f"{row['id']} - {row['equipo_local']} vs {row['equipo_visitante']}": row["id"]
+            for _, row in partidos_df.iterrows()
+        }
 
-            seleccion = st.selectbox(
-                "Partido",
-                list(opciones.keys()),
-                key="admin_partido"
-)
+        seleccion = st.selectbox(
+            "Partido",
+            list(opciones.keys()),
+            key="admin_partido"
+        )
 
-            partido_id = opciones[seleccion]
+        partido_id = opciones[seleccion]
 
-            goles_local = st.number_input(
-                "Goles local",
-                 min_value=0,
-                max_value=20,
-                key="admin_gl"
-)
+        partido = partidos_df[
+            partidos_df["id"] == partido_id
+        ].iloc[0]
 
-            goles_visitante = st.number_input(
+        st.write(
+            f"**{partido['equipo_local']} vs {partido['equipo_visitante']}**"
+        )
+
+        goles_local = st.number_input(
+            "Goles local",
+            min_value=0,
+            max_value=20,
+            key="admin_gl"
+        )
+
+        goles_visitante = st.number_input(
             "Goles visitante",
             min_value=0,
             max_value=20,
             key="admin_gv"
-)
+        )
 
-            if st.button("Guardar resultado oficial"):
+        if st.button("Guardar resultado oficial"):
 
-                guardar_resultado(
+            guardar_resultado(
                 partido_id,
                 goles_local,
                 goles_visitante
-    )
+            )
 
             st.success("Resultado guardado ✅")
             st.rerun()
