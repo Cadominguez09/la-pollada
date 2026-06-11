@@ -485,13 +485,13 @@ if st.session_state.logueado:
                 key="admin_partido"
 )
 
-        partido_id = opciones[seleccion]
+            partido_id = opciones[seleccion]
 
-        goles_local = st.number_input(
-        "Goles local",
-        min_value=0,
-        max_value=20,
-        key="admin_gl"
+            goles_local = st.number_input(
+                "Goles local",
+                 min_value=0,
+                max_value=20,
+                key="admin_gl"
 )
 
         goles_visitante = st.number_input(
