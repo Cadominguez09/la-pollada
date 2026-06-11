@@ -503,7 +503,7 @@ if st.session_state.logueado:
 
         if st.button("Guardar resultado oficial"):
 
-        guardar_resultado(
+            guardar_resultado(
             partido_id,
             goles_local,
             goles_visitante
