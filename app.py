@@ -494,14 +494,14 @@ if st.session_state.logueado:
                 key="admin_gl"
 )
 
-        goles_visitante = st.number_input(
-         "Goles visitante",
-        min_value=0,
-        max_value=20,
-        key="admin_gv"
+            goles_visitante = st.number_input(
+            "Goles visitante",
+            min_value=0,
+            max_value=20,
+            key="admin_gv"
 )
 
-        if st.button("Guardar resultado oficial"):
+            if st.button("Guardar resultado oficial"):
 
             guardar_resultado(
             partido_id,
@@ -509,9 +509,9 @@ if st.session_state.logueado:
             goles_visitante
     )
 
-        st.success("Resultado guardado ✅")
-        st.rerun()
-        st.stop()
+            st.success("Resultado guardado ✅")
+            st.rerun()
+            st.stop()
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "Pronósticos",
