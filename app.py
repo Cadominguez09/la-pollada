@@ -475,14 +475,14 @@ if st.session_state.logueado:
             st.write("### Registrar resultado")
 
             opciones = {
-            f"{row['id']} - {row['equipo_local']} vs {row['equipo_visitante']}": row["id"]
-            for _, row in partidos_df.iterrows()
+                f"{row['id']} - {row['equipo_local']} vs {row['equipo_visitante']}": row["id"]
+                for _, row in partidos_df.iterrows()
 }
 
-        seleccion = st.selectbox(
-        "Partido",
-        list(opciones.keys()),
-        key="admin_partido"
+            seleccion = st.selectbox(
+                "Partido",
+                list(opciones.keys()),
+                key="admin_partido"
 )
 
         partido_id = opciones[seleccion]
