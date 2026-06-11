@@ -460,7 +460,18 @@ if st.session_state.logueado:
             use_container_width=True,
             hide_index=True
         )
+                st.write("### Resultados oficiales")
 
+        resultados = cargar_resultados()
+
+        if resultados.empty:
+            st.info("Todavía no hay resultados cargados.")
+        else:
+            st.dataframe(
+                resultados,
+                use_container_width=True,
+                hide_index=True
+            )
         st.stop()
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
