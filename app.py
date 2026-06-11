@@ -460,7 +460,7 @@ if st.session_state.logueado:
             use_container_width=True,
             hide_index=True
         )
-                st.write("### Resultados oficiales")
+        st.write("### Resultados oficiales")
 
         resultados = cargar_resultados()
 
