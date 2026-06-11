@@ -472,7 +472,7 @@ if st.session_state.logueado:
                 use_container_width=True,
                 hide_index=True
             )
-                    st.write("### Registrar resultado")
+        st.write("### Registrar resultado")
 
         opciones = {
             f"{row['id']} - {row['equipo_local']} vs {row['equipo_visitante']}": row["id"]
