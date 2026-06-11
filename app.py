@@ -172,7 +172,12 @@ def guardar_pronosticos(nuevos_pronosticos):
     df_nuevo = pd.DataFrame(nuevos_pronosticos)
 
     df_existente = cargar_pronosticos()
-
+    if df_existente.empty:
+        st.error(
+            "⚠️ Error de seguridad: no se cargaron los pronósticos existentes. "
+            "No se guardó nada para evitar borrar datos."
+        )
+        st.stop()
     usuario = st.session_state.usuario
     ids_partidos = df_nuevo["partido_id"].tolist()
 
@@ -547,9 +552,9 @@ if st.session_state.logueado:
 
         with col3:
             st.metric("🐶 Oli Puntos ", 0)
-            pronosticos_guardados = cargar_pronosticos()
-            resultados = cargar_resultados()
-            pronosticos_usuario = pronosticos_guardados[
+        pronosticos_guardados = cargar_pronosticos()
+        resultados = cargar_resultados()
+        pronosticos_usuario = pronosticos_guardados[
             pronosticos_guardados["usuario"] == st.session_state.usuario
         ]
 
