@@ -585,6 +585,22 @@ if st.session_state.logueado:
     st.write(
         f"✈️ Visitante: {visitante_gana/total:.0%}"
     )
+    st.write("### 🎯 Marcador más votado")
+
+    marcadores = (
+        pronosticos_previa["goles_local"].astype(str)
+        + "-"
+        + pronosticos_previa["goles_visitante"].astype(str)
+    )
+
+    conteo = marcadores.value_counts()
+
+    marcador_top = conteo.index[0]
+    votos_top = conteo.iloc[0]
+
+    st.success(
+        f"{marcador_top} ({votos_top} votos)"
+    )
     st.stop()
         
 
