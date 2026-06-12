@@ -896,32 +896,32 @@ if not fila.empty:
         jugador_default = fila.iloc[0]["mejor_jugador"]
         arquero_default = fila.iloc[0]["mejor_arquero"]
 
-    campeon = st.text_input(
+        campeon = st.text_input(
         "🏆 Campeón",
         value=campeon_default
     )
 
-    subcampeon = st.text_input(
+        subcampeon = st.text_input(
         "🥈 Subcampeón",
         value=subcampeon_default
     )
 
-    tercer_lugar = st.text_input(
+        tercer_lugar = st.text_input(
         "🥉 Tercer lugar",
         value=tercero_default
     )
 
-    maximo_goleador = st.text_input(
+        maximo_goleador = st.text_input(
         "⚽ Máximo goleador",
         value=goleador_default
     )
 
-    mejor_jugador = st.text_input(
+        mejor_jugador = st.text_input(
         "⭐ Mejor jugador",
         value=jugador_default
     )
 
-    mejor_arquero = st.text_input(
+        mejor_arquero = st.text_input(
         "🧤 Mejor arquero",
         value=arquero_default
     )
