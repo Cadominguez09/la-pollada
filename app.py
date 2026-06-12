@@ -615,7 +615,7 @@ if st.session_state.es_admin:
     )
         st.write("### 🤠 Rebeldes")
 
-    if empate >= local_gana and empate >= visitante_gana:
+        if empate >= local_gana and empate >= visitante_gana:
         tendencia = "Empate"
 
         rebeldes = pronosticos_previa[
@@ -623,7 +623,7 @@ if st.session_state.es_admin:
             pronosticos_previa["goles_visitante"]
         ]
 
-    elif local_gana >= visitante_gana:
+        elif local_gana >= visitante_gana:
         tendencia = "Local"
 
         rebeldes = pronosticos_previa[
@@ -631,7 +631,7 @@ if st.session_state.es_admin:
             pronosticos_previa["goles_visitante"]
         ]
 
-    else:
+        else:
         tendencia = "Visitante"
 
         rebeldes = pronosticos_previa[
@@ -639,10 +639,10 @@ if st.session_state.es_admin:
             pronosticos_previa["goles_visitante"]
         ]
 
-    st.write(f"📈 Tendencia mayoritaria: **{tendencia}**")
-    if rebeldes.empty:
+        st.write(f"📈 Tendencia mayoritaria: **{tendencia}**")
+        if rebeldes.empty:
         st.success("Nadie va contra la corriente 😄")
-    else:
+        else:
 
           for _, fila in rebeldes.head(10).iterrows():
 
