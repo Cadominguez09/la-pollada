@@ -549,8 +549,8 @@ if st.session_state.logueado:
         )
         if not pronosticos_previa.empty:
 
-        local_gana = len(
-        pronosticos_previa[
+            local_gana = len(
+            pronosticos_previa[
             pronosticos_previa["goles_local"] >
             pronosticos_previa["goles_visitante"]
         ]
