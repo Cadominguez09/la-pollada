@@ -799,7 +799,7 @@ with tab1:
         if st.button("Guardar pronósticos"):
             guardar_pronosticos(pronosticos)
             st.success("Pronósticos guardados correctamente ✅")
-    with tab2:
+with tab2:
 
         st.write("## Clasificación general")
 
