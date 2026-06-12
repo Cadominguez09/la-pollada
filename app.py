@@ -942,7 +942,7 @@ if st.button("Guardar predicciones especiales"):
         )
 
         st.success("Predicciones guardadas ✅")
-    with tab5:
+with tab5:
 
         st.write("## 📜 Reglas de La Pollada")
 
