@@ -613,6 +613,43 @@ if st.session_state.logueado:
     st.write(
         f"✈️ Visitante: {promedio_visitante:.2f}"
     )
+        st.write("### 🤠 Rebeldes")
+
+    if empate >= local_gana and empate >= visitante_gana:
+        tendencia = "Empate"
+
+        rebeldes = pronosticos_previa[
+            pronosticos_previa["goles_local"] !=
+            pronosticos_previa["goles_visitante"]
+        ]
+
+    elif local_gana >= visitante_gana:
+        tendencia = "Local"
+
+        rebeldes = pronosticos_previa[
+            pronosticos_previa["goles_local"] <
+            pronosticos_previa["goles_visitante"]
+        ]
+
+    else:
+        tendencia = "Visitante"
+
+        rebeldes = pronosticos_previa[
+            pronosticos_previa["goles_local"] >
+            pronosticos_previa["goles_visitante"]
+        ]
+
+    st.write(f"📈 Tendencia mayoritaria: **{tendencia}**")
+        if rebeldes.empty:
+        st.success("Nadie va contra la corriente 😄")
+        else:
+
+          for _, fila in rebeldes.head(10).iterrows():
+
+            st.write(
+                f"• {fila['usuario']} → "
+                f"{fila['goles_local']}-{fila['goles_visitante']}"
+            )
     st.stop()
         
 
