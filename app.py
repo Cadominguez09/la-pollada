@@ -585,7 +585,7 @@ if st.session_state.logueado:
     st.write(
         f"✈️ Visitante: {visitante_gana/total:.0%}"
     )
-        st.stop()
+    st.stop()
         
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
