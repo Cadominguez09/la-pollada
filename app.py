@@ -615,7 +615,7 @@ if st.session_state.logueado:
     )
     st.write("### 🤠 Rebeldes")
 
-        if empate >= local_gana and empate >= visitante_gana:
+    if empate >= local_gana and empate >= visitante_gana:
         tendencia = "Empate"
 
         rebeldes = pronosticos_previa[
