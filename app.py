@@ -640,9 +640,9 @@ if st.session_state.logueado:
         ]
 
     st.write(f"📈 Tendencia mayoritaria: **{tendencia}**")
-        if rebeldes.empty:
+    if rebeldes.empty:
         st.success("Nadie va contra la corriente 😄")
-        else:
+    else:
 
           for _, fila in rebeldes.head(10).iterrows():
 
