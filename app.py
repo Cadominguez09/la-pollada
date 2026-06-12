@@ -926,7 +926,7 @@ if not fila.empty:
         value=arquero_default
     )
 
-    if st.button("Guardar predicciones especiales"):
+if st.button("Guardar predicciones especiales"):
 
         guardar_predicciones_especiales(
             st.session_state.usuario,
