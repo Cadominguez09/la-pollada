@@ -855,7 +855,7 @@ with tab2:
                 use_container_width=True,
                 hide_index=True
             )
-    with tab3:
+with tab3:
 
         st.write("## Detalle de puntos por partido")
 
@@ -869,7 +869,7 @@ with tab2:
                 use_container_width=True,
                 hide_index=True
             )
-    with tab4:
+with tab4:
 
         st.write("## ⭐ Predicciones especiales")
 
