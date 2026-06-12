@@ -662,7 +662,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
         
 ])
 
-    with tab1:
+with tab1:
 
         puesto, puntos_usuario = obtener_posicion_usuario(st.session_state.usuario)
 
