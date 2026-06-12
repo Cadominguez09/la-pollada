@@ -572,7 +572,7 @@ if st.session_state.es_admin:
 
         total = len(pronosticos_previa)
 
-    st.write("### 📈 Tendencia de la comunidad")
+        st.write("### 📈 Tendencia de la comunidad")
 
         st.write(
         f"🏠 Local: {local_gana/total:.0%}"
