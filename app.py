@@ -880,12 +880,12 @@ with tab4:
             st.session_state.usuario
     ]
 
-    campeon_default = ""
-    subcampeon_default = ""
-    tercero_default = ""
-    goleador_default = ""
-    jugador_default = ""
-    arquero_default = ""
+        campeon_default = ""
+        subcampeon_default = ""
+        tercero_default = ""
+        goleador_default = ""
+        jugador_default = ""
+        arquero_default = ""
 
     if not fila.empty:
 
