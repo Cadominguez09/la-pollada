@@ -653,7 +653,7 @@ if st.session_state.es_admin:
         st.stop()
         
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "Pronósticos",
         "Clasificación",
         "Detalle de puntos",
