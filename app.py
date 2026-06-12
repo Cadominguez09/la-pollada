@@ -524,7 +524,20 @@ if st.session_state.logueado:
 
             st.success("Resultado guardado ✅")
             st.rerun()
+        
+        if st.button("Guardar resultado oficial"):
+
+            guardar_resultado(
+                partido_id,
+                goles_local,
+                goles_visitante
+            )
+
+            st.success("Resultado guardado ✅")
+            st.rerun()
+
         st.stop()
+        
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "Pronósticos",
