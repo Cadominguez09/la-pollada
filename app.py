@@ -578,16 +578,16 @@ if st.session_state.es_admin:
         f"🏠 Local: {local_gana/total:.0%}"
     )
 
-    st.write(
+        st.write(
         f"🤝 Empate: {empate/total:.0%}"
     )
 
-    st.write(
+        st.write(
         f"✈️ Visitante: {visitante_gana/total:.0%}"
     )
-    st.write("### 🎯 Marcador más votado")
+        st.write("### 🎯 Marcador más votado")
 
-    marcadores = (
+        marcadores = (
         pronosticos_previa["goles_local"].astype(str)
         + "-"
         + pronosticos_previa["goles_visitante"].astype(str)
@@ -598,22 +598,22 @@ if st.session_state.es_admin:
     marcador_top = conteo.index[0]
     votos_top = conteo.iloc[0]
 
-    st.success(
+        st.success(
         f"{marcador_top} ({votos_top} votos)"
     )
-    st.write("### ⚽ Promedio de goles esperado")
+        st.write("### ⚽ Promedio de goles esperado")
 
-    promedio_local = pronosticos_previa["goles_local"].mean()
-    promedio_visitante = pronosticos_previa["goles_visitante"].mean()
+        promedio_local = pronosticos_previa["goles_local"].mean()
+        promedio_visitante = pronosticos_previa["goles_visitante"].mean()
 
-    st.write(
+        st.write(
         f"🏠 Local: {promedio_local:.2f}"
     )
 
-    st.write(
+        st.write(
         f"✈️ Visitante: {promedio_visitante:.2f}"
     )
-    st.write("### 🤠 Rebeldes")
+        st.write("### 🤠 Rebeldes")
 
     if empate >= local_gana and empate >= visitante_gana:
         tendencia = "Empate"
