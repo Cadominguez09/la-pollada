@@ -525,16 +525,28 @@ if st.session_state.logueado:
             st.success("Resultado guardado ✅")
             st.rerun()
         
-        if st.button("Guardar resultado oficial"):
+               st.write("## 📊 Previa del partido")
 
-            guardar_resultado(
-                partido_id,
-                goles_local,
-                goles_visitante
-            )
+        opciones_previa = {
+            f"{row['equipo_local']} vs {row['equipo_visitante']}": row["id"]
+            for _, row in partidos_df.iterrows()
+        }
 
-            st.success("Resultado guardado ✅")
-            st.rerun()
+        partido_previa = st.selectbox(
+            "Selecciona partido",
+            list(opciones_previa.keys()),
+            key="admin_previa"
+        )
+
+        partido_id_previa = opciones_previa[partido_previa]
+
+        pronosticos_previa = pronosticos_df[
+            pronosticos_df["partido_id"] == partido_id_previa
+        ]
+
+        st.write(
+            f"Pronósticos recibidos: {len(pronosticos_previa)}"
+        )
 
         st.stop()
         
