@@ -887,7 +887,7 @@ with tab4:
         jugador_default = ""
         arquero_default = ""
 
-    if not fila.empty:
+if not fila.empty:
 
         campeon_default = fila.iloc[0]["campeon"]
         subcampeon_default = fila.iloc[0]["subcampeon"]
