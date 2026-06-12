@@ -593,10 +593,10 @@ if st.session_state.es_admin:
         + pronosticos_previa["goles_visitante"].astype(str)
     )
 
-    conteo = marcadores.value_counts()
+        conteo = marcadores.value_counts()
 
-    marcador_top = conteo.index[0]
-    votos_top = conteo.iloc[0]
+        marcador_top = conteo.index[0]
+        votos_top = conteo.iloc[0]
 
         st.success(
         f"{marcador_top} ({votos_top} votos)"
