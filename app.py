@@ -601,6 +601,18 @@ if st.session_state.logueado:
     st.success(
         f"{marcador_top} ({votos_top} votos)"
     )
+    st.write("### ⚽ Promedio de goles esperado")
+
+    promedio_local = pronosticos_previa["goles_local"].mean()
+    promedio_visitante = pronosticos_previa["goles_visitante"].mean()
+
+    st.write(
+        f"🏠 Local: {promedio_local:.2f}"
+    )
+
+    st.write(
+        f"✈️ Visitante: {promedio_visitante:.2f}"
+    )
     st.stop()
         
 
