@@ -574,7 +574,7 @@ if st.session_state.es_admin:
 
     st.write("### 📈 Tendencia de la comunidad")
 
-    st.write(
+        st.write(
         f"🏠 Local: {local_gana/total:.0%}"
     )
 
