@@ -405,7 +405,7 @@ if st.session_state.logueado:
         st.session_state.usuario = ""
         st.session_state.es_admin = False
         st.rerun()
-if st.session_state.es_admin:
+    if st.session_state.es_admin:
 
         st.write("## 🛠️ Panel de administrador")
         st.write("## 📋 Estado de pronósticos")
