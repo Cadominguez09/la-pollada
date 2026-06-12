@@ -547,7 +547,44 @@ if st.session_state.logueado:
         st.write(
             f"Pronósticos recibidos: {len(pronosticos_previa)}"
         )
+        if not pronosticos_previa.empty:
 
+        local_gana = len(
+        pronosticos_previa[
+            pronosticos_previa["goles_local"] >
+            pronosticos_previa["goles_visitante"]
+        ]
+    )
+
+        empate = len(
+        pronosticos_previa[
+            pronosticos_previa["goles_local"] ==
+            pronosticos_previa["goles_visitante"]
+        ]
+    )
+
+        visitante_gana = len(
+        pronosticos_previa[
+            pronosticos_previa["goles_local"] <
+            pronosticos_previa["goles_visitante"]
+        ]
+    )
+
+        total = len(pronosticos_previa)
+
+    st.write("### 📈 Tendencia de la comunidad")
+
+    st.write(
+        f"🏠 Local: {local_gana/total:.0%}"
+    )
+
+    st.write(
+        f"🤝 Empate: {empate/total:.0%}"
+    )
+
+    st.write(
+        f"✈️ Visitante: {visitante_gana/total:.0%}"
+    )
         st.stop()
         
 
