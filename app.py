@@ -616,25 +616,25 @@ if st.session_state.es_admin:
         st.write("### 🤠 Rebeldes")
 
         if empate >= local_gana and empate >= visitante_gana:
-        tendencia = "Empate"
+            tendencia = "Empate"
 
-        rebeldes = pronosticos_previa[
+            rebeldes = pronosticos_previa[
             pronosticos_previa["goles_local"] !=
             pronosticos_previa["goles_visitante"]
         ]
 
         elif local_gana >= visitante_gana:
-        tendencia = "Local"
+            tendencia = "Local"
 
-        rebeldes = pronosticos_previa[
+            rebeldes = pronosticos_previa[
             pronosticos_previa["goles_local"] <
             pronosticos_previa["goles_visitante"]
         ]
 
         else:
-        tendencia = "Visitante"
+            tendencia = "Visitante"
 
-        rebeldes = pronosticos_previa[
+            rebeldes = pronosticos_previa[
             pronosticos_previa["goles_local"] >
             pronosticos_previa["goles_visitante"]
         ]
