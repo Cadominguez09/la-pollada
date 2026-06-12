@@ -650,7 +650,7 @@ if st.session_state.logueado:
                 f"• {fila['usuario']} → "
                 f"{fila['goles_local']}-{fila['goles_visitante']}"
             )
-     st.stop()
+      st.stop()
         
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
