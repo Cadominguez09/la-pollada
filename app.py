@@ -662,7 +662,7 @@ if st.session_state.logueado:
         
 ])
 
-with tab1:
+    with tab1:
 
         puesto, puntos_usuario = obtener_posicion_usuario(st.session_state.usuario)
 
@@ -799,7 +799,7 @@ with tab1:
         if st.button("Guardar pronósticos"):
             guardar_pronosticos(pronosticos)
             st.success("Pronósticos guardados correctamente ✅")
-with tab2:
+    with tab2:
 
         st.write("## Clasificación general")
 
@@ -855,7 +855,7 @@ with tab2:
                 use_container_width=True,
                 hide_index=True
             )
-with tab3:
+    with tab3:
 
         st.write("## Detalle de puntos por partido")
 
@@ -869,7 +869,7 @@ with tab3:
                 use_container_width=True,
                 hide_index=True
             )
-with tab4:
+    with tab4:
 
         st.write("## ⭐ Predicciones especiales")
 
@@ -942,7 +942,7 @@ with tab4:
         )
 
         st.success("Predicciones guardadas ✅")
-with tab5:
+    with tab5:
 
         st.write("## 📜 Reglas de La Pollada")
 
