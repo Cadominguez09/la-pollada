@@ -525,7 +525,7 @@ if st.session_state.logueado:
             st.success("Resultado guardado ✅")
             st.rerun()
         
-               st.write("## 📊 Previa del partido")
+            st.write("## 📊 Previa del partido")
 
         opciones_previa = {
             f"{row['equipo_local']} vs {row['equipo_visitante']}": row["id"]
