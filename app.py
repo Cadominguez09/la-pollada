@@ -713,6 +713,12 @@ if st.session_state.logueado:
         st.info(
             f"📋 Pronósticos guardados: {cantidad_guardados}/{total_jornada}"
         )
+        if cantidad_guardados == total_jornada:
+            st.success("✅ Jornada completa")
+        else:
+            st.warning(
+                f"⚠️ Te faltan {total_jornada - cantidad_guardados} partidos"
+            )
         st.header(fecha_seleccionada)
 
         st.warning(
