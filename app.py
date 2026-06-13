@@ -650,7 +650,56 @@ if st.session_state.logueado:
                 f"• {fila['usuario']} → "
                 f"{fila['goles_local']}-{fila['goles_visitante']}"
             )
+
+        st.write("## 🏆 Post-partido")
+
+        opciones_post = {
+            f"{row['id']} - {row['equipo_local']} vs {row['equipo_visitante']}": row["id"]
+            for _, row in partidos_df.iterrows()
+        }
+
+        partido_post = st.selectbox(
+            "Selecciona partido para resumen post-partido",
+            list(opciones_post.keys()),
+            key="admin_post_partido"
+        )
+
+        partido_id_post = opciones_post[partido_post]
+
+        resultado_post = resultados[
+            resultados["partido_id"] == partido_id_post
+        ]
+
+        if resultado_post.empty:
+            st.info("Todavía no hay resultado oficial para este partido.")
+        else:
+            resultado_fila = resultado_post.iloc[0]
+
+            pronosticos_post = pronosticos_df[
+                pronosticos_df["partido_id"] == partido_id_post
+            ]
+
+            if pronosticos_post.empty:
+                st.info("No hay pronósticos para este partido.")
+            else:
+                r_local = int(resultado_fila["goles_local"])
+                r_visitante = int(resultado_fila["goles_visitante"])
+
+                st.write(f"Resultado real: **{r_local}-{r_visitante}**")
+
+                exactos = pronosticos_post[
+                    (pronosticos_post["goles_local"].astype(int) == r_local) &
+                    (pronosticos_post["goles_visitante"].astype(int) == r_visitante)
+                ]
+
+                st.write("### 🎯 Acertaron marcador exacto")
+
+                if exactos.empty:
+                    st.info("Nadie acertó el marcador exacto.")
+                else:
+                    st.success(", ".join(exactos["usuario"].tolist()))
         st.stop()
+        
         
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
