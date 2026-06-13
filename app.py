@@ -799,9 +799,9 @@ if st.session_state.logueado:
         if st.button("Guardar pronósticos"):
             guardar_pronosticos(pronosticos)
             st.success("Pronósticos guardados correctamente ✅")
-            st.write("## 📋 Resumen de mis pronósticos")
+        st.write("## 📋 Resumen de mis pronósticos")
 
-            resumen = ""
+        resumen = ""
 
             for p in pronosticos:
             resumen += (
