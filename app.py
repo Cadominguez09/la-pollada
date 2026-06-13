@@ -803,13 +803,13 @@ if st.session_state.logueado:
 
         resumen = ""
 
-            for p in pronosticos:
+        for p in pronosticos:
             resumen += (
             f"{p['equipo_local']} {p['goles_local']}-"
             f"{p['goles_visitante']} {p['equipo_visitante']}\n"
     )
 
-            st.text_area(
+        st.text_area(
             "Copia o toma captura de este resumen",
             resumen,
             height=300
