@@ -696,7 +696,23 @@ if st.session_state.logueado:
             ],
             key="fecha_usuario"
         )
+        partidos_jornada_ids = partidos[
+            partidos["jornada"] == fecha_seleccionada
+        ]["id"].tolist()
 
+        cantidad_guardados = len(
+            pronosticos_usuario[
+                pronosticos_usuario["partido_id"].isin(partidos_jornada_ids)
+            ]
+        )
+
+        total_jornada = len(partidos_jornada_ids)
+
+        st.header(fecha_seleccionada)
+
+        st.info(
+            f"📋 Pronósticos guardados: {cantidad_guardados}/{total_jornada}"
+        )
         st.header(fecha_seleccionada)
 
         st.warning(
