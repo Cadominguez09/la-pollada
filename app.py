@@ -55,16 +55,29 @@ def leer_sheet(nombre_hoja):
 def escribir_sheet(nombre_hoja, df):
     filas = df.to_dict(orient="records")
 
-    respuesta = requests.post(
-        API_URL,
-        json={
-            "action": "write",
-            "sheet": nombre_hoja,
-            "rows": filas
-        }
-    )
+    try:
+        respuesta = requests.post(
+            API_URL,
+            json={
+                "action": "write",
+                "sheet": nombre_hoja,
+                "rows": filas
+            },
+            timeout=30
+        )
+    except requests.exceptions.RequestException:
+        st.error("⚠️ No se pudo conectar con Google Sheets. Intenta de nuevo.")
+        st.stop()
 
-    return respuesta.json()
+    try:
+        return respuesta.json()
+    except Exception:
+        if respuesta.status_code == 200:
+            return {"status": "ok"}
+        else:
+            st.error("⚠️ Google Sheets respondió con error.")
+            st.write(respuesta.text[:500])
+            st.stop()
 def cargar_jugadores():
     return leer_sheet("jugadores")
 
