@@ -111,6 +111,13 @@ def guardar_resultado(partido_id, goles_local, goles_visitante):
 
     resultados = cargar_resultados()
 
+    if resultados.empty:
+        st.error(
+            "⚠️ Error de seguridad: no se cargaron los resultados existentes. "
+            "No se guardó nada para evitar borrar datos."
+        )
+        st.stop()
+
     nueva_fila = pd.DataFrame([
         {
             "partido_id": partido_id,
