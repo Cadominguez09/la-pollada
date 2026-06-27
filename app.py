@@ -718,6 +718,67 @@ if st.session_state.logueado:
                     st.info("Nadie acertó el marcador exacto.")
                 else:
                     st.success(", ".join(exactos["usuario"].tolist()))
+                st.write("## 🧩 Editar cruces de eliminatorias")
+
+        partidos_eliminatoria = partidos_df[
+            partidos_df["jornada"].isin([
+                "16avos de final",
+                "Octavos de final",
+                "Cuartos de final",
+                "Semifinal",
+                "Tercer puesto",
+                "Final"
+            ])
+        ]
+
+        if partidos_eliminatoria.empty:
+            st.info("Todavía no hay partidos de eliminatoria cargados.")
+        else:
+            opciones_elim = {
+                f"{row['id']} - {row['jornada']} - {row['equipo_local']} vs {row['equipo_visitante']}": row["id"]
+                for _, row in partidos_eliminatoria.iterrows()
+            }
+
+            partido_editar = st.selectbox(
+                "Selecciona partido a editar",
+                list(opciones_elim.keys()),
+                key="admin_editar_elim"
+            )
+
+            partido_id_editar = opciones_elim[partido_editar]
+
+            fila_partido = partidos_df[
+                partidos_df["id"] == partido_id_editar
+            ].iloc[0]
+
+            nuevo_local = st.text_input(
+                "Equipo local",
+                value=fila_partido["equipo_local"],
+                key="editar_local"
+            )
+
+            nuevo_visitante = st.text_input(
+                "Equipo visitante",
+                value=fila_partido["equipo_visitante"],
+                key="editar_visitante"
+            )
+
+            if st.button("Guardar cruce"):
+
+                partidos_df.loc[
+                    partidos_df["id"] == partido_id_editar,
+                    "equipo_local"
+                ] = nuevo_local
+
+                partidos_df.loc[
+                    partidos_df["id"] == partido_id_editar,
+                    "equipo_visitante"
+                ] = nuevo_visitante
+
+                escribir_sheet("partidos", partidos_df)
+
+                st.success("Cruce actualizado ✅")
+                st.rerun()
         st.stop()
         
         
