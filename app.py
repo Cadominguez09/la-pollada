@@ -828,7 +828,13 @@ if st.session_state.logueado:
             [
                 "Primera fecha de grupos",
                 "Segunda fecha de grupos",
-                "Tercera fecha de grupos"
+                "Tercera fecha de grupos",
+                "16avos de final",
+                "Octavos de final",
+                "Cuartos de final",
+                "Semifinal",
+                "Tercer puesto",
+                "Final"
             ],
             key="fecha_usuario"
         )
