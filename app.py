@@ -871,8 +871,8 @@ if st.session_state.logueado:
         partidos = partidos[
             partidos["jornada"] == fecha_seleccionada
         ]
-            st.write("Cantidad de partidos:", len(partidos))
-            st.dataframe(partidos[["id", "equipo_local", "equipo_visitante"]])
+        st.write("Cantidad de partidos:", len(partidos))
+        st.dataframe(partidos[["id", "equipo_local", "equipo_visitante"]])
 
         for _, partido in partidos.iterrows():
 
