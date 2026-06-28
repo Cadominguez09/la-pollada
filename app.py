@@ -186,32 +186,32 @@ def guardar_predicciones_especiales(usuario, predicciones):
     escribir_sheet("predicciones_especiales", df_final)
 
 def guardar_pronosticos(nuevos_pronosticos):
-    df_nuevo = pd.DataFrame(nuevos_pronosticos)
 
-    df_existente = cargar_pronosticos()
-    if df_existente.empty:
-        st.error(
-            "⚠️ Error de seguridad: no se cargaron los pronósticos existentes. "
-            "No se guardó nada para evitar borrar datos."
+    try:
+        respuesta = requests.post(
+            API_URL,
+            json={
+                "action": "upsert_pronosticos",
+                "usuario": st.session_state.usuario,
+                "pronosticos": nuevos_pronosticos
+            },
+            timeout=30
         )
+    except requests.exceptions.RequestException:
+        st.error("⚠️ No se pudo conectar con Google Sheets. Intenta de nuevo.")
         st.stop()
-    usuario = st.session_state.usuario
-    ids_partidos = df_nuevo["partido_id"].tolist()
 
-    df_existente = df_existente[
-        ~(
-            (df_existente["usuario"] == usuario) &
-            (df_existente["partido_id"].isin(ids_partidos))
-        )
-    ]
+    try:
+        datos = respuesta.json()
+    except Exception:
+        st.error("⚠️ Google Sheets respondió, pero no en formato esperado.")
+        st.stop()
 
-    df_final = pd.concat(
-        [df_existente, df_nuevo],
-        ignore_index=True
-    )
+    if datos.get("status") != "ok":
+        st.error("⚠️ No se pudieron guardar los pronósticos.")
+        st.stop()
 
-    escribir_sheet("pronosticos", df_final)
-
+   
 
 # -----------------------------
 # Cálculo de puntos
