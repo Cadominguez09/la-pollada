@@ -107,7 +107,7 @@ def cargar_resultados():
         ])
 
     return df
-def guardar_resultado(partido_id, goles_local, goles_visitante):
+def guardar_resultado(partido_id, goles_local, goles_visitante, clasificado=""):
 
     try:
         respuesta = requests.post(
@@ -116,7 +116,8 @@ def guardar_resultado(partido_id, goles_local, goles_visitante):
                 "action": "upsert_resultado",
                 "partido_id": int(partido_id),
                 "goles_local": int(goles_local),
-                "goles_visitante": int(goles_visitante)
+                "goles_visitante": int(goles_visitante),
+                "clasificado": clasificado
             },
             timeout=30
         )
