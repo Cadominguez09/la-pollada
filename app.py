@@ -109,33 +109,30 @@ def cargar_resultados():
     return df
 def guardar_resultado(partido_id, goles_local, goles_visitante):
 
-    resultados = cargar_resultados()
-
-    if resultados.empty:
-        st.error(
-            "⚠️ Error de seguridad: no se cargaron los resultados existentes. "
-            "No se guardó nada para evitar borrar datos."
+    try:
+        respuesta = requests.post(
+            API_URL,
+            json={
+                "action": "upsert_resultado",
+                "partido_id": int(partido_id),
+                "goles_local": int(goles_local),
+                "goles_visitante": int(goles_visitante)
+            },
+            timeout=30
         )
+    except requests.exceptions.RequestException:
+        st.error("⚠️ No se pudo conectar con Google Sheets. Intenta de nuevo.")
         st.stop()
 
-    nueva_fila = pd.DataFrame([
-        {
-            "partido_id": partido_id,
-            "goles_local": goles_local,
-            "goles_visitante": goles_visitante
-        }
-    ])
+    try:
+        datos = respuesta.json()
+    except Exception:
+        st.error("⚠️ Google Sheets respondió, pero no en formato esperado.")
+        st.stop()
 
-    resultados = resultados[
-        resultados["partido_id"] != partido_id
-    ]
-
-    resultados = pd.concat(
-        [resultados, nueva_fila],
-        ignore_index=True
-    )
-
-    escribir_sheet("resultados", resultados)
+    if datos.get("status") != "ok":
+        st.error("⚠️ No se pudo guardar el resultado.")
+        st.stop()
 def eliminar_resultado(partido_id):
 
     resultados = cargar_resultados()
