@@ -210,7 +210,6 @@ def guardar_pronosticos(nuevos_pronosticos):
     if datos.get("status") != "ok":
         st.error("⚠️ No se pudieron guardar los pronósticos.")
         st.stop()
-
    
 
 # -----------------------------
