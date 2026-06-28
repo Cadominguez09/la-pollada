@@ -253,7 +253,16 @@ def calcular_puntos(pronostico, resultado):
     if (p_local - p_visitante) == (r_local - r_visitante):
         puntos += 1
         detalle.append("Diferencia correcta (+1)")
-
+    # Equipo clasificado correcto en eliminatorias
+    if (
+        "clasificado" in pronostico
+        and "clasificado" in resultado
+        and str(pronostico["clasificado"]).strip() != ""
+        and str(resultado["clasificado"]).strip() != ""
+    ):
+        if str(pronostico["clasificado"]).strip() == str(resultado["clasificado"]).strip():
+            puntos += 3
+            detalle.append("Clasificado correcto (+3)")
     return puntos, " | ".join(detalle)
 
 
