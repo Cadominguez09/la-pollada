@@ -947,7 +947,43 @@ if st.session_state.logueado:
                 st.warning(
                     "⏰ Pronóstico cerrado: el partido ya comenzó."
                 )
+            jornadas_eliminatoria = [
+                "16avos de final",
+                "Octavos de final",
+                "Cuartos de final",
+                "Semifinal",
+                "Tercer puesto",
+                "Final"
+            ]
 
+            clasificado = ""
+
+            if fecha_seleccionada in jornadas_eliminatoria:
+
+                opciones_clasificado = [
+                    partido["equipo_local"],
+                    partido["equipo_visitante"]
+                ]
+
+                if not fila.empty and "clasificado" in fila.columns:
+                    clasificado_guardado = fila.iloc[0]["clasificado"]
+
+                    if clasificado_guardado in opciones_clasificado:
+                        indice_clasificado = opciones_clasificado.index(
+                            clasificado_guardado
+                        )
+                    else:
+                        indice_clasificado = 0
+                else:
+                    indice_clasificado = 0
+
+                clasificado = st.selectbox(
+                    "🏆 ¿Quién clasifica?",
+                    opciones_clasificado,
+                    index=indice_clasificado,
+                    key=f"clasificado_{partido['id']}",
+                    disabled=partido_cerrado or partido_bloqueado
+                )
             pronosticos.append({
                 "usuario": st.session_state.usuario,
                 "partido_id": partido["id"],
@@ -955,6 +991,7 @@ if st.session_state.logueado:
                 "equipo_visitante": partido["equipo_visitante"],
                 "goles_local": goles_local,
                 "goles_visitante": goles_visitante
+                "clasificado": clasificado
             })
 
             st.divider()
