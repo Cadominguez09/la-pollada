@@ -990,7 +990,7 @@ if st.session_state.logueado:
                 "equipo_local": partido["equipo_local"],
                 "equipo_visitante": partido["equipo_visitante"],
                 "goles_local": goles_local,
-                "goles_visitante": goles_visitante
+                "goles_visitante": goles_visitante,
                 "clasificado": clasificado
             })
 
