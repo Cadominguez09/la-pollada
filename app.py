@@ -569,7 +569,8 @@ if st.session_state.logueado:
             guardar_resultado(
                 partido_id,
                 goles_local,
-                goles_visitante
+                goles_visitante,
+                clasificado_resultado
             )
 
             st.success("Resultado guardado ✅")
