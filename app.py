@@ -544,7 +544,26 @@ if st.session_state.logueado:
             max_value=20,
             key="admin_gv"
         )
+        es_eliminatoria_admin = partido["jornada"] in [
+            "16avos de final",
+            "Octavos de final",
+            "Cuartos de final",
+            "Semifinal",
+            "Tercer puesto",
+            "Final"
+        ]
 
+        if es_eliminatoria_admin:
+            clasificado_resultado = st.selectbox(
+                "🏆 Equipo clasificado",
+                [
+                    partido["equipo_local"],
+                    partido["equipo_visitante"]
+                ],
+                key="admin_clasificado_resultado"
+            )
+        else:
+            clasificado_resultado = ""
         if st.button("Guardar resultado oficial"):
 
             guardar_resultado(
