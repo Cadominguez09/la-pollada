@@ -1007,12 +1007,37 @@ if st.session_state.logueado:
                 else:
                     indice_clasificado = 0
 
-                clasificado = st.selectbox(
-                    "🏆 ¿Quién clasifica?",
-                    opciones_clasificado,
-                    index=indice_clasificado,
-                    key=f"clasificado_{partido['id']}",
-                    disabled=partido_cerrado or partido_bloqueado
+                            es_eliminatoria = partido["jornada"] in [
+                "16avos de final",
+                "Octavos de final",
+                "Cuartos de final",
+                "Semifinal",
+                "Tercer puesto",
+                "Final"
+            ]
+
+            if es_eliminatoria:
+
+                if goles_local > goles_visitante:
+                    clasificado = partido["equipo_local"]
+                    st.info(f"🏆 Clasifica automáticamente: {clasificado}")
+
+                elif goles_visitante > goles_local:
+                    clasificado = partido["equipo_visitante"]
+                    st.info(f"🏆 Clasifica automáticamente: {clasificado}")
+
+                else:
+                    clasificado = st.selectbox(
+                        "🏆 ¿Quién clasifica?",
+                        [
+                            partido["equipo_local"],
+                            partido["equipo_visitante"]
+                        ],
+                        key=f"clasificado_{partido['id']}"
+                    )
+
+            else:
+                clasificado = ""
                 )
             pronosticos.append({
                 "usuario": st.session_state.usuario,
