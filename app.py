@@ -1038,7 +1038,7 @@ if st.session_state.logueado:
 
             else:
                 clasificado = ""
-                )
+                
             pronosticos.append({
                 "usuario": st.session_state.usuario,
                 "partido_id": partido["id"],
