@@ -1007,7 +1007,7 @@ if st.session_state.logueado:
                 else:
                     indice_clasificado = 0
 
-                            es_eliminatoria = partido["jornada"] in [
+                    es_eliminatoria = partido["jornada"] in [
                 "16avos de final",
                 "Octavos de final",
                 "Cuartos de final",
