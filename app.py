@@ -1015,7 +1015,14 @@ if st.session_state.logueado:
                 "Tercer puesto",
                 "Final"
             ]
-
+            es_eliminatoria = partido["jornada"] in [
+                "16avos de final",
+                "Octavos de final",
+                "Cuartos de final",
+                "Semifinal",
+                "Tercer puesto",
+                "Final"
+            ]
             if es_eliminatoria:
 
                 if goles_local > goles_visitante:
