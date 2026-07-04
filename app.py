@@ -1145,13 +1145,13 @@ if st.session_state.logueado:
                 use_container_width=True,
                 hide_index=True
             )
- with tab4:
+     with tab4:
 
-    st.write("## ⭐ Predicciones especiales")
+        st.write("## ⭐ Predicciones especiales")
 
-    predicciones_guardadas = cargar_predicciones_especiales()
+        predicciones_guardadas = cargar_predicciones_especiales()
 
-    fila = predicciones_guardadas[
+        fila = predicciones_guardadas[
         predicciones_guardadas["usuario"] == st.session_state.usuario
     ]
 
