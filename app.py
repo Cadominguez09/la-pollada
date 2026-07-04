@@ -1145,54 +1145,37 @@ if st.session_state.logueado:
                 use_container_width=True,
                 hide_index=True
             )
-    with tab4:
+ with tab4:
 
-        st.write("## ⭐ Predicciones especiales")
+    st.write("## ⭐ Predicciones especiales")
 
-        predicciones_guardadas = cargar_predicciones_especiales()
+    predicciones_guardadas = cargar_predicciones_especiales()
 
-        fila = predicciones_guardadas[
+    fila = predicciones_guardadas[
         predicciones_guardadas["usuario"] == st.session_state.usuario
     ]
 
-        campeon_default = ""
-        subcampeon_default = ""
-        tercero_default = ""
-        goleador_default = ""
-        jugador_default = ""
-        arquero_default = ""
+    campeon_default = ""
+    subcampeon_default = ""
+    tercero_default = ""
+    goleador_default = ""
+    jugador_default = ""
+    arquero_default = ""
 
-        if not fila.empty:
-                campeon_default = fila.iloc[0]["campeon"]
-                subcampeon_default = fila.iloc[0]["subcampeon"]
-                tercero_default = fila.iloc[0]["tercer_lugar"]
-                goleador_default = fila.iloc[0]["maximo_goleador"]
-                jugador_default = fila.iloc[0]["mejor_jugador"]
-                arquero_default = fila.iloc[0]["mejor_arquero"]
+    if not fila.empty:
+        campeon_default = fila.iloc[0]["campeon"]
+        subcampeon_default = fila.iloc[0]["subcampeon"]
+        tercero_default = fila.iloc[0]["tercer_lugar"]
+        goleador_default = fila.iloc[0]["maximo_goleador"]
+        jugador_default = fila.iloc[0]["mejor_jugador"]
+        arquero_default = fila.iloc[0]["mejor_arquero"]
 
-                campeon = st.text_input("🏆 Campeón", value=campeon_default)
-                subcampeon = st.text_input("🥈 Subcampeón", value=subcampeon_default)
-                tercer_lugar = st.text_input("🥉 Tercer lugar", value=tercero_default)
-                maximo_goleador = st.text_input("⚽ Máximo goleador", value=goleador_default)
-                mejor_jugador = st.text_input("⭐ Mejor jugador", value=jugador_default)
-                mejor_arquero = st.text_input("🧤 Mejor arquero", value=arquero_default)
-
-        if st.button("Guardar predicciones especiales"):
-
-            guardar_predicciones_especiales(
-            st.session_state.usuario,
-            {
-                "usuario": st.session_state.usuario,
-                "campeon": campeon,
-                "subcampeon": subcampeon,
-                "tercer_lugar": tercer_lugar,
-                "maximo_goleador": maximo_goleador,
-                "mejor_jugador": mejor_jugador,
-                "mejor_arquero": mejor_arquero
-            }
-        )
-
-        st.success("Predicciones guardadas ✅")    
+    campeon = st.text_input("🏆 Campeón", value=campeon_default)
+    subcampeon = st.text_input("🥈 Subcampeón", value=subcampeon_default)
+    tercer_lugar = st.text_input("🥉 Tercer lugar", value=tercero_default)
+    maximo_goleador = st.text_input("⚽ Máximo goleador", value=goleador_default)
+    mejor_jugador = st.text_input("⭐ Mejor jugador", value=jugador_default)
+    mejor_arquero = st.text_input("🧤 Mejor arquero", value=arquero_default)   
    
     with tab5:
 
