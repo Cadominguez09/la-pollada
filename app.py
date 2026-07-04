@@ -1176,7 +1176,22 @@ if st.session_state.logueado:
     maximo_goleador = st.text_input("⚽ Máximo goleador", value=goleador_default)
     mejor_jugador = st.text_input("⭐ Mejor jugador", value=jugador_default)
     mejor_arquero = st.text_input("🧤 Mejor arquero", value=arquero_default)   
-   
+   if st.button("Guardar predicciones especiales"):
+
+    guardar_predicciones_especiales(
+        st.session_state.usuario,
+        {
+            "usuario": st.session_state.usuario,
+            "campeon": campeon,
+            "subcampeon": subcampeon,
+            "tercer_lugar": tercer_lugar,
+            "maximo_goleador": maximo_goleador,
+            "mejor_jugador": mejor_jugador,
+            "mejor_arquero": mejor_arquero
+        }
+    )
+
+    st.success("Predicciones guardadas ✅")
     with tab5:
 
         st.write("## 📜 Reglas de La Pollada")
