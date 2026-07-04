@@ -1145,7 +1145,7 @@ if st.session_state.logueado:
                 use_container_width=True,
                 hide_index=True
             )
-       with tab4:
+    with tab4:
 
         st.write("## ⭐ Predicciones especiales")
 
