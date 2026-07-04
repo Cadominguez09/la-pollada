@@ -1179,7 +1179,7 @@ if st.session_state.logueado:
 
         if st.button("Guardar predicciones especiales"):
 
-        guardar_predicciones_especiales(
+            guardar_predicciones_especiales(
             st.session_state.usuario,
             {
                 "usuario": st.session_state.usuario,
