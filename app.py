@@ -907,12 +907,12 @@ if st.session_state.logueado:
                 st.rerun()
         st.stop()
         
-         st.write("---")
-         st.write("## ⭐ Resultados oficiales de predicciones especiales")
+        st.write("---")
+        st.write("## ⭐ Resultados oficiales de predicciones especiales")
 
-resultados_actuales = cargar_resultados_especiales()
+        resultados_actuales = cargar_resultados_especiales()
 
-valores = {
+        valores = {
     "campeon": "",
     "subcampeon": "",
     "tercer_lugar": "",
