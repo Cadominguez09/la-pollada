@@ -954,7 +954,7 @@ mejor_jugador = st.text_input(
     value=valores["mejor_jugador"],
     key="oficial_jugador"
 )
- if st.button("Guardar resultados especiales"):
+if st.button("Guardar resultados especiales"):
 
     guardar_resultados_especiales({
         "campeon": campeon,
