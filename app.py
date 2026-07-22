@@ -920,12 +920,12 @@ if st.session_state.logueado:
     "mejor_jugador": ""
 }
 
-if not resultados_actuales.empty:
+        if not resultados_actuales.empty:
     fila = resultados_actuales.iloc[0]
-    for campo in valores:
+        for campo in valores:
         valores[campo] = fila.get(campo, "")
 
-campeon = st.text_input(
+    campeon = st.text_input(
     "🏆 Campeón",
     value=valores["campeon"],
     key="oficial_campeon"
@@ -955,7 +955,7 @@ mejor_jugador = st.text_input(
     key="oficial_jugador"
 )
 
-if st.button("Guardar resultados especiales"):
+    if st.button("Guardar resultados especiales"):
 
     guardar_resultados_especiales({
         "campeon": campeon,
