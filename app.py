@@ -922,8 +922,8 @@ if st.session_state.logueado:
 
         if not resultados_actuales.empty:
         fila = resultados_actuales.iloc[0]
-        for campo in valores:
-        valores[campo] = fila.get(campo, "")
+            for campo in valores:
+            valores[campo] = fila.get(campo, "")
 
     campeon = st.text_input(
     "🏆 Campeón",
