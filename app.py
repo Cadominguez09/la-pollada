@@ -227,7 +227,31 @@ def guardar_predicciones_especiales(usuario, predicciones):
     )
 
     escribir_sheet("predicciones_especiales", df_final)
+def cargar_resultados_especiales():
+    df = leer_sheet("resultados_especiales")
 
+    columnas = [
+        "campeon",
+        "subcampeon",
+        "tercer_lugar",
+        "maximo_goleador",
+        "mejor_jugador"
+    ]
+
+    if df.empty:
+        return pd.DataFrame(columns=columnas)
+
+    return df
+
+
+def guardar_resultados_especiales(resultados):
+
+    df = pd.DataFrame([resultados])
+
+    escribir_sheet(
+        "resultados_especiales",
+        df
+    )
 def guardar_pronosticos(nuevos_pronosticos):
 
     try:
@@ -883,7 +907,66 @@ if st.session_state.logueado:
                 st.rerun()
         st.stop()
         
-        
+     st.write("---")
+st.write("## ⭐ Resultados oficiales de predicciones especiales")
+
+resultados_actuales = cargar_resultados_especiales()
+
+valores = {
+    "campeon": "",
+    "subcampeon": "",
+    "tercer_lugar": "",
+    "maximo_goleador": "",
+    "mejor_jugador": ""
+}
+
+if not resultados_actuales.empty:
+    fila = resultados_actuales.iloc[0]
+    for campo in valores:
+        valores[campo] = fila.get(campo, "")
+
+campeon = st.text_input(
+    "🏆 Campeón",
+    value=valores["campeon"],
+    key="oficial_campeon"
+)
+
+subcampeon = st.text_input(
+    "🥈 Subcampeón",
+    value=valores["subcampeon"],
+    key="oficial_subcampeon"
+)
+
+tercer_lugar = st.text_input(
+    "🥉 Tercer lugar",
+    value=valores["tercer_lugar"],
+    key="oficial_tercer"
+)
+
+maximo_goleador = st.text_input(
+    "⚽ Máximo goleador",
+    value=valores["maximo_goleador"],
+    key="oficial_goleador"
+)
+
+mejor_jugador = st.text_input(
+    "⭐ Mejor jugador",
+    value=valores["mejor_jugador"],
+    key="oficial_jugador"
+)
+
+if st.button("Guardar resultados especiales"):
+
+    guardar_resultados_especiales({
+        "campeon": campeon,
+        "subcampeon": subcampeon,
+        "tercer_lugar": tercer_lugar,
+        "maximo_goleador": maximo_goleador,
+        "mejor_jugador": mejor_jugador
+    })
+
+    st.success("Resultados especiales guardados.")
+    st.rerun()   
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "Pronósticos",
