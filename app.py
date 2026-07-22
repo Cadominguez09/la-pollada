@@ -933,8 +933,8 @@ if st.session_state.logueado:
 
 subcampeon = st.text_input(
     "🥈 Subcampeón",
-    value=valores["subcampeon"],
-    key="oficial_subcampeon"
+value=valores["subcampeon"],
+key="oficial_subcampeon"
 )
 
 tercer_lugar = st.text_input(
