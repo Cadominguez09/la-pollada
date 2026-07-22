@@ -913,59 +913,61 @@ if st.session_state.logueado:
         resultados_actuales = cargar_resultados_especiales()
 
         valores = {
-    "campeon": "",
-    "subcampeon": "",
-    "tercer_lugar": "",
-    "maximo_goleador": "",
-    "mejor_jugador": ""
-}
+            "campeon": "",
+            "subcampeon": "",
+            "tercer_lugar": "",
+            "maximo_goleador": "",
+            "mejor_jugador": ""
+        }
 
         if not resultados_actuales.empty:
             fila = resultados_actuales.iloc[0]
+
             for campo in valores:
                 valores[campo] = fila.get(campo, "")
 
-    campeon = st.text_input(
-    "🏆 Campeón",
-    value=valores["campeon"],
-    key="oficial_campeon"
-)
+        campeon = st.text_input(
+            "🏆 Campeón",
+            value=valores["campeon"],
+            key="oficial_campeon"
+        )
 
-subcampeon = st.text_input(
-    "🥈 Subcampeón",
-value=valores["subcampeon"],
-key="oficial_subcampeon"
-)
+        subcampeon = st.text_input(
+            "🥈 Subcampeón",
+            value=valores["subcampeon"],
+            key="oficial_subcampeon"
+        )
 
-tercer_lugar = st.text_input(
-    "🥉 Tercer lugar",
-    value=valores["tercer_lugar"],
-    key="oficial_tercer"
-)
+        tercer_lugar = st.text_input(
+            "🥉 Tercer lugar",
+            value=valores["tercer_lugar"],
+            key="oficial_tercer"
+        )
 
-maximo_goleador = st.text_input(
-    "⚽ Máximo goleador",
-    value=valores["maximo_goleador"],
-    key="oficial_goleador"
-)
+        maximo_goleador = st.text_input(
+            "⚽ Máximo goleador",
+            value=valores["maximo_goleador"],
+            key="oficial_goleador"
+        )
 
-mejor_jugador = st.text_input(
-    "⭐ Mejor jugador",
-    value=valores["mejor_jugador"],
-    key="oficial_jugador"
-)
-if st.button("Guardar resultados especiales"):
+        mejor_jugador = st.text_input(
+            "⭐ Mejor jugador",
+            value=valores["mejor_jugador"],
+            key="oficial_jugador"
+        )
 
-    guardar_resultados_especiales({
-        "campeon": campeon,
-        "subcampeon": subcampeon,
-        "tercer_lugar": tercer_lugar,
-        "maximo_goleador": maximo_goleador,
-        "mejor_jugador": mejor_jugador
-    })
+        if st.button("Guardar resultados especiales"):
 
-    st.success("Resultados especiales guardados.")
-    st.rerun()  
+            guardar_resultados_especiales({
+                "campeon": campeon,
+                "subcampeon": subcampeon,
+                "tercer_lugar": tercer_lugar,
+                "maximo_goleador": maximo_goleador,
+                "mejor_jugador": mejor_jugador
+            })
+
+            st.success("Resultados especiales guardados ✅")
+            st.rerun()  
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "Pronósticos",
