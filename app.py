@@ -2,7 +2,49 @@ import streamlit as st
 import pandas as pd
 import requests
 import os
+import unicodedata
+
+
+PUNTAJES_ESPECIALES = {
+    "campeon": 18,
+    "subcampeon": 15,
+    "tercer_lugar": 12,
+    "maximo_goleador": 12,
+    "mejor_jugador": 12,
+}
+
+
+ALIAS_ESPECIALES = {
+    "kylian mbappe": "mbappe",
+    "kylian mbappe lottin": "mbappe",
+    "embape": "mbappe",
+
+    "lionel messi": "messi",
+    "leo messi": "messi",
+
+    "emiliano martinez": "emiliano martinez",
+    "dibu martinez": "emiliano martinez",
+    "el dibu martinez": "emiliano martinez",
+
+    "unai simon": "unai simon",
+
+    "thibaut courtois": "courtois",
+    "thibaut courtoi": "courtois",
+    "courtois": "courtois",
+
+    "manuel neuer": "neuer",
+    "neuer": "neuer",
+    "noyer": "neuer",
+
+    "lamine yamal": "yamal",
+    "yamal": "yamal",
+
+    "ousmane dembele": "dembele",
+    "dembele": "dembele",
+}
 from datetime import datetime
+
+
 st.set_page_config(
     page_title="La Pollada",
     page_icon="⚽",
@@ -211,7 +253,15 @@ def guardar_pronosticos(nuevos_pronosticos):
     if datos.get("status") != "ok":
         st.error("⚠️ No se pudieron guardar los pronósticos.")
         st.stop()
-   
+
+
+def convertir_a_nombre_canonico(texto):
+    texto_normalizado = normalizar_texto(texto)
+
+    return ALIAS_ESPECIALES.get(
+        texto_normalizado,
+        texto_normalizado
+    )   
 
 # -----------------------------
 # Cálculo de puntos
@@ -349,7 +399,27 @@ def obtener_posicion_usuario(usuario):
     puntos = int(fila_usuario.iloc[0]["puntos"])
 
     return puesto, puntos
+def normalizar_texto(texto):
+    """
+    Convierte un texto a una forma comparable:
+    - elimina espacios adicionales
+    - convierte a minúsculas
+    - elimina tildes
+    """
 
+    if texto is None or pd.isna(texto):
+        return ""
+
+    texto = str(texto).strip().lower()
+
+    texto = unicodedata.normalize("NFD", texto)
+    texto = "".join(
+        caracter
+        for caracter in texto
+        if unicodedata.category(caracter) != "Mn"
+    )
+
+    return texto
 
 # -----------------------------
 # Datos iniciales
