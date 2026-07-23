@@ -1322,60 +1322,59 @@ if st.session_state.logueado:
 )   
     with tab2:
 
-        st.write("## Clasificación general")
+    st.write("## Clasificación general")
 
-        tabla_puntos = calcular_tabla_puntos()
+    ranking = calcular_ranking_general()
 
-        if tabla_puntos.empty:
-            st.info("Todavía no hay puntos calculados.")
-        else:
-            ranking = (
-                tabla_puntos
-                .groupby("usuario", as_index=False)["puntos"]
-                .sum()
-                .sort_values("puntos", ascending=False)
-            )
+    if ranking.empty:
+        st.info("Todavía no hay puntos calculados.")
+    else:
+        medallas = []
 
-            ranking.insert(0, "puesto", range(1, len(ranking) + 1))
+        for i in range(len(ranking)):
+            if i == 0:
+                medallas.append("🥇")
+            elif i == 1:
+                medallas.append("🥈")
+            elif i == 2:
+                medallas.append("🥉")
+            else:
+                medallas.append("")
 
-            medallas = []
+        ranking.insert(1, "medalla", medallas)
 
-            for i in range(len(ranking)):
-                if i == 0:
-                    medallas.append("🥇")
-                elif i == 1:
-                    medallas.append("🥈")
-                elif i == 2:
-                    medallas.append("🥉")
-                else:
-                    medallas.append("")
+        st.write("### 🏆 Podio")
 
-            ranking.insert(1, "medalla", medallas)
+        top3 = ranking.head(3)
 
-            st.write("### 🏆 Podio")
+        cols = st.columns(3)
 
-            top3 = ranking.head(3)
+        for i, (_, fila) in enumerate(top3.iterrows()):
+            with cols[i]:
+                if fila["puesto"] == 1:
+                    st.markdown(f"## 🥇 {fila['usuario']}")
+                elif fila["puesto"] == 2:
+                    st.markdown(f"## 🥈 {fila['usuario']}")
+                elif fila["puesto"] == 3:
+                    st.markdown(f"## 🥉 {fila['usuario']}")
 
-            cols = st.columns(3)
+                st.metric("Puntos", int(fila["puntos"]))
 
-            for i, (_, fila) in enumerate(top3.iterrows()):
-                with cols[i]:
-                    if fila["puesto"] == 1:
-                        st.markdown(f"## 🥇 {fila['usuario']}")
-                    elif fila["puesto"] == 2:
-                        st.markdown(f"## 🥈 {fila['usuario']}")
-                    elif fila["puesto"] == 3:
-                        st.markdown(f"## 🥉 {fila['usuario']}")
+        st.write("### Tabla completa")
 
-                    st.metric("Puntos", int(fila["puntos"]))
-
-            st.write("### Tabla completa")
-
-            st.dataframe(
-                ranking,
-                use_container_width=True,
-                hide_index=True
-            )
+        st.dataframe(
+            ranking,
+            use_container_width=True,
+            hide_index=True,
+            column_config={
+                "puesto": "Puesto",
+                "medalla": "",
+                "usuario": "Participante",
+                "puntos_partidos": "Puntos partidos",
+                "puntos_especiales": "Puntos especiales",
+                "puntos": "Puntos totales"
+            }
+        )
     with tab3:
 
         st.write("## Detalle de puntos por partido")
