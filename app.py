@@ -1327,7 +1327,7 @@ if st.session_state.logueado:
         ranking = calcular_ranking_general()
 
         if ranking.empty:
-        st.info("Todavía no hay puntos calculados.")
+            st.info("Todavía no hay puntos calculados.")
         else:
             medallas = []
 
