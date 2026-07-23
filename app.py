@@ -286,7 +286,105 @@ def convertir_a_nombre_canonico(texto):
         texto_normalizado,
         texto_normalizado
     )   
+def cargar_resultados_especiales():
+    df = leer_sheet("resultados_especiales")
 
+    if df.empty:
+        return None
+
+    return df.iloc[0]
+def calcular_puntos_especiales():
+
+    predicciones = cargar_predicciones_especiales()
+    resultados = cargar_resultados_especiales()
+
+    if predicciones.empty or resultados is None:
+        return pd.DataFrame(columns=["usuario", "puntos_especiales"])
+
+    filas = []
+
+    for _, pred in predicciones.iterrows():
+
+        puntos = 0
+
+        for categoria, valor in PUNTAJES_ESPECIALES.items():
+
+            respuesta_usuario = convertir_a_nombre_canonico(
+                pred.get(categoria, "")
+            )
+
+            respuesta_oficial = convertir_a_nombre_canonico(
+                resultados.get(categoria, "")
+            )
+
+            if respuesta_usuario == respuesta_oficial:
+                puntos += valor
+
+        filas.append({
+            "usuario": pred["usuario"],
+            "puntos_especiales": puntos
+        })
+
+    return pd.DataFrame(filas)    
+def calcular_ranking_general():
+    tabla_partidos = calcular_tabla_puntos()
+    tabla_especiales = calcular_puntos_especiales()
+
+    # Sumar puntos obtenidos en partidos
+    if tabla_partidos.empty:
+        ranking = pd.DataFrame(
+            columns=["usuario", "puntos_partidos"]
+        )
+    else:
+        ranking = (
+            tabla_partidos
+            .groupby("usuario", as_index=False)["puntos"]
+            .sum()
+            .rename(columns={"puntos": "puntos_partidos"})
+        )
+
+    # Incluir participantes con predicciones especiales,
+    # aunque todavía no tengan puntos de partidos
+    if not tabla_especiales.empty:
+        ranking = ranking.merge(
+            tabla_especiales[
+                ["usuario", "puntos_especiales"]
+            ],
+            on="usuario",
+            how="outer"
+        )
+    else:
+        ranking["puntos_especiales"] = 0
+
+    ranking["puntos_partidos"] = (
+        ranking["puntos_partidos"]
+        .fillna(0)
+        .astype(int)
+    )
+
+    ranking["puntos_especiales"] = (
+        ranking["puntos_especiales"]
+        .fillna(0)
+        .astype(int)
+    )
+
+    ranking["puntos"] = (
+        ranking["puntos_partidos"]
+        + ranking["puntos_especiales"]
+    )
+
+    ranking = ranking.sort_values(
+        ["puntos", "puntos_partidos"],
+        ascending=[False, False]
+    ).reset_index(drop=True)
+
+    ranking.insert(
+        0,
+        "puesto",
+        range(1, len(ranking) + 1)
+    )
+
+    return ranking    
 # -----------------------------
 # Cálculo de puntos
 # -----------------------------
