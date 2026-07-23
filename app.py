@@ -1322,14 +1322,14 @@ if st.session_state.logueado:
 )   
     with tab2:
 
-    st.write("## Clasificación general")
+        st.write("## Clasificación general")
 
-    ranking = calcular_ranking_general()
+        ranking = calcular_ranking_general()
 
-    if ranking.empty:
+        if ranking.empty:
         st.info("Todavía no hay puntos calculados.")
-    else:
-        medallas = []
+        else:
+            medallas = []
 
         for i in range(len(ranking)):
             if i == 0:
