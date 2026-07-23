@@ -498,21 +498,14 @@ def obtener_posicion_usuario(usuario):
     return puesto, puntos
 
 def obtener_posicion_usuario(usuario):
-    tabla_puntos = calcular_tabla_puntos()
+    ranking = calcular_ranking_general()
 
-    if tabla_puntos.empty:
+    if ranking.empty:
         return None, 0
 
-    ranking = (
-        tabla_puntos
-        .groupby("usuario", as_index=False)["puntos"]
-        .sum()
-        .sort_values("puntos", ascending=False)
-    )
-
-    ranking.insert(0, "puesto", range(1, len(ranking) + 1))
-
-    fila_usuario = ranking[ranking["usuario"] == usuario]
+    fila_usuario = ranking[
+        ranking["usuario"] == usuario
+    ]
 
     if fila_usuario.empty:
         return None, 0
