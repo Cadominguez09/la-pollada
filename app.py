@@ -11,6 +11,7 @@ PUNTAJES_ESPECIALES = {
     "tercer_lugar": 12,
     "maximo_goleador": 12,
     "mejor_jugador": 12,
+    "mejor_arquero": 12,
 }
 
 
@@ -235,7 +236,8 @@ def cargar_resultados_especiales():
         "subcampeon",
         "tercer_lugar",
         "maximo_goleador",
-        "mejor_jugador"
+        "mejor_jugador",
+        "mejor_arquero"
     ]
 
     if df.empty:
@@ -1008,7 +1010,8 @@ if st.session_state.logueado:
             "subcampeon": "",
             "tercer_lugar": "",
             "maximo_goleador": "",
-            "mejor_jugador": ""
+            "mejor_jugador": "",
+            "mejor_arquero": ""
         }
 
         if not resultados_actuales.empty:
@@ -1046,7 +1049,11 @@ if st.session_state.logueado:
             value=valores["mejor_jugador"],
             key="oficial_jugador"
         )
-
+        mejor_arquero = st.text_input(
+            "🧤 Mejor arquero",
+            value=valores.get("mejor_arquero", ""),
+            key="oficial_arquero"
+)
         if st.button("Guardar resultados especiales"):
 
             guardar_resultados_especiales({
@@ -1054,7 +1061,8 @@ if st.session_state.logueado:
                 "subcampeon": subcampeon,
                 "tercer_lugar": tercer_lugar,
                 "maximo_goleador": maximo_goleador,
-                "mejor_jugador": mejor_jugador
+                "mejor_jugador": mejor_jugador,
+                "mejor_arquero": mejor_arquero
             })
 
             st.success("Resultados especiales guardados ✅")
